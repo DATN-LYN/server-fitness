@@ -47,6 +47,18 @@ input QueryFilterDto {
   limit: Float
   page: Float
   orderBy: String
+  filters: [FilterDto!]
+}
+
+input FilterDto {
+  field: String
+  data: String
+  operator: FILTER_OPERATOR
+}
+
+enum FILTER_OPERATOR {
+  eq
+  like
 }
 
 type IProgram {

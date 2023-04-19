@@ -7,7 +7,7 @@ export const connectionConfig: ConnectionOptions = {
   host: 'localhost',
   port: 5432,
   username: 'postgres',
-  password: '123',
+  password: 'nhi111',
   database: 'fitness',
   cli: {
     migrationsDir: 'migrations',

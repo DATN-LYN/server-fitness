@@ -1,12 +1,14 @@
+import { Field } from '@nestjs/graphql';
 import {
+  BaseEntity,
   Column,
   Entity,
   JoinColumn,
-  PrimaryGeneratedColumn,
-  BaseEntity,
   ManyToOne,
+  OneToMany,
+  PrimaryGeneratedColumn,
 } from 'typeorm';
-import { Field } from '@nestjs/graphql';
+import { Inbox } from './Inbox';
 import { Role } from './Role';
 
 @Entity('user')
@@ -34,4 +36,8 @@ export class User extends BaseEntity {
   @ManyToOne(() => Role)
   @JoinColumn({ name: 'role_id' })
   role: Role;
+
+  @Field(() => [Inbox], { nullable: true })
+  @OneToMany(() => Inbox, inbox => inbox.userId)
+  inboxes: Inbox[];
 }

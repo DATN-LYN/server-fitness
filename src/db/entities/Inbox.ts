@@ -5,6 +5,7 @@ import {
   BeforeUpdate,
   Column,
   Entity,
+  JoinColumn,
   ManyToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
@@ -17,18 +18,23 @@ export class Inbox extends BaseEntity {
   @PrimaryGeneratedColumn()
   id!: string;
 
-  @Field()
+  @Field({ nullable: true })
+  // add migration
   @Column()
   message!: string;
 
-  @Field()
-  @Column()
-  isSender!: boolean;
+  // @Field()
+  // @Column()
+  // isSender!: boolean;
 
   @Field()
   @Column()
-  @ManyToOne(() => User)
   userId!: string;
+
+  @Field(() => User, { nullable: true })
+  @ManyToOne(() => User)
+  @JoinColumn({ name: 'user_id' })
+  user: User;
 
   @Field({ nullable: true })
   @Column()

@@ -1,7 +1,6 @@
 import { QueryFilterDto } from '@/common/dto';
 import { Inbox } from '@/db/entities/Inbox';
 import { customPaginate } from '@/utils/custom-paginate';
-import { extractFilter } from '@/utils/extractFilter';
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { getManager } from 'typeorm';
 import { UpsertInboxInputDto } from './dto';
@@ -15,24 +14,30 @@ export class InboxService {
       .getRepository(Inbox)
       .merge(Inbox.create(), { ...input });
 
-    return await transaction.getRepository(Inbox).save(newInbox);
+     await transaction.getRepository(Inbox).save(newInbox)
+     
+     return this.getInboxes({
+      "limit":10,
+      "page":1,
+     });
   }
 
   async getInbox(inboxId: string) {
     const inbox = await Inbox.findOne({ id: inboxId });
     if (!inbox) {
-      throw new NotFoundException('Category not found');
+      throw new NotFoundException('Inbox not found');
     }
 
     return inbox;
   }
   async getInboxes(queryParams: QueryFilterDto) {
     const builder = Inbox.createQueryBuilder();
-    extractFilter<Inbox>(
-      builder,
-      queryParams,
-      'Inbox.userId',
-    );
+
+    return await customPaginate<Inbox>(builder, queryParams);
+  }
+
+  async getMyInboxes(queryParams: QueryFilterDto, userId:string) {
+    const builder = Inbox.createQueryBuilder().where({ userId});
 
     return await customPaginate<Inbox>(builder, queryParams);
   }

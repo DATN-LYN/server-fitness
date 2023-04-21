@@ -1,24 +1,25 @@
-import _ from 'lodash';
 
+import { User } from '@/db/entities/User';
+import { Jwt } from '@/provider/jwt';
 import {
   CreateAccessTokenDto,
   CreateAccessTokenResponseDto,
-  LoginResponseDto,
+  LoginResponseDto
 } from '../dto';
-import { User } from '@/db/entities/User';
-import { Jwt } from '@/provider/jwt';
 
 export class AccessToken {
-  static SELECT_USER = ['id', 'email', 'avatar', 'createdAt', 'updatedAt'];
+  static SELECT_USER = ['id', 'email'];
 
   static async createAccessToken(
     payload: User,
   ): Promise<CreateAccessTokenResponseDto> {
     const user = { ...payload };
-    const tokenizedData: CreateAccessTokenDto = _.pick(
-      user,
-      AccessToken.SELECT_USER,
-    );
+    console.log(user);
+    // const tokenizedData: CreateAccessTokenDto = _.pick(
+    //   user,
+    //   AccessToken.SELECT_USER,
+    // );
+    const tokenizedData : CreateAccessTokenDto= {email: user.email, id: user.id}
 
     const accessToken = Jwt.issueAccessToken(tokenizedData);
     const refreshToken = Jwt.issueRefreshToken(tokenizedData);

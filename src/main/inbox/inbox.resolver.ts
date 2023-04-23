@@ -8,30 +8,30 @@ import { IInbox, IInboxes } from './interface';
 
 @Resolver()
 export class InboxResolver {
-  constructor(private readonly categoryService: InboxService) {}
+  constructor(private readonly inboxService: InboxService) {}
 
   @Mutation(() => IInboxes, { name: 'upsertInbox' })
   async upsertInbox(@Args('input') input: UpsertInboxInputDto) {
-    return this.categoryService.upsertInbox(input);
+    return this.inboxService.upsertInbox(input);
   }
 
   @Query(() => IInbox, { name: 'getInbox' })
   async getInbox(@Args('categoryId') categoryId: string) {
-    return this.categoryService.getInbox(categoryId);
+    return this.inboxService.getInbox(categoryId);
   }
 
   @Query(() => IInboxes, { name: 'getInboxes' })
   async getInboxes(@Args('queryParams') queryParams: QueryFilterDto) {
-    return this.categoryService.getInboxes(queryParams);
+    return this.inboxService.getInboxes(queryParams);
   }
 
   @Query(() => IInboxes, { name: 'getMyInboxes' })
   async getMyInboxes(@Args('queryParams') queryParams: QueryFilterDto, @GetContext() ctx: Context) {
-    return this.categoryService.getMyInboxes(queryParams,  ctx.currentUser.id);
+    return this.inboxService.getMyInboxes(queryParams,  ctx.currentUser.id);
   }
 
   @Mutation(() => ResponseMessageBase, { name: 'deleteInbox' })
   async deleteInbox(@Args('categoryId') categoryId: string) {
-    return this.categoryService.deleteInbox(categoryId);
+    return this.inboxService.deleteInbox(categoryId);
   }
 }

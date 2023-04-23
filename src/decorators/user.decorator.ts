@@ -8,7 +8,7 @@ import { GqlExecutionContext } from '@nestjs/graphql';
 import jwt_decode from 'jwt-decode';
 
 export interface Context {
-  currentUser: any; //Later change to User type
+  currentUser: User; //Later change to User type
   IPAddress: string;
   AccessToken: string;
   Platform: string;

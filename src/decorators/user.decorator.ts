@@ -27,19 +27,25 @@ export const GetContext = createParamDecorator(
       throw new BadRequestException('Permission denied');
     }
 
-    const jwtDecode = jwt_decode<any>(authorization);
+    try{
+      const jwtDecode = jwt_decode<any>(authorization);
 
-    const currentUser = await User.findOne(jwtDecode?.email);
+      const currentUser = await User.findOne(jwtDecode?.email);
+      if (!currentUser) {
+        throw new BadRequestException('User not found');
+      }
 
-    if (!currentUser) {
-      throw new BadRequestException('User not found');
+      return {
+        currentUser,
+        // IPAddress: sourceIp,
+        AccessToken: authorization,
+        Platform: platform,
+      };
     }
+    catch (err){
 
-    return {
-      currentUser,
-      // IPAddress: sourceIp,
-      AccessToken: authorization,
-      Platform: platform,
-    };
+    }
+   
+  
   },
 );

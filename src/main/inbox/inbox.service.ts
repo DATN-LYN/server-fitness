@@ -14,12 +14,7 @@ export class InboxService {
       .getRepository(Inbox)
       .merge(Inbox.create(), { ...input });
 
-     await transaction.getRepository(Inbox).save(newInbox)
-     
-     return this.getInboxes({
-      "limit":10,
-      "page":1,
-     });
+    return await transaction.getRepository(Inbox).save(newInbox)  
   }
 
   async getInbox(inboxId: string) {

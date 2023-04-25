@@ -21,6 +21,30 @@ export class Program extends BaseEntity {
 
   @Field({ nullable: true })
   @Column()
+  duration: string;
+
+  @Field({ nullable: true })
+  @Column()
+  calo: number;
+
+  @Field({ nullable: true })
+  @Column()
+  level: number;
+
+  @Field({ nullable: true })
+  @Column()
+  bodyPart: string;
+
+  @Field({ nullable: true })
+  @Column()
+  description: string;
+
+  @Field({ nullable: true })
+  @Column()
+  imgUrl: string;
+
+  @Field({ nullable: true })
+  @Column()
   createdAt: Date;
 
   @Field({ nullable: true })

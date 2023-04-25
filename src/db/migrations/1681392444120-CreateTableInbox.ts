@@ -5,6 +5,8 @@ export class CreateTableInbox1681392444120 implements MigrationInterface {
     await queryRunner.query(`
         CREATE TABLE IF NOT EXISTS "inbox" (
         "id" uuid NOT NULL DEFAULT uuid_generate_v4(),
+        "is_sender" bool NOT NULL,
+        "message" VARCHAR(2048) NOT NULL,
         "user_id" uuid NOT NULL,
 
         "created_at" timestamp with time zone DEFAULT NOW(),

@@ -16,7 +16,7 @@ import { Role } from './Role';
 export class User extends BaseEntity {
   @Column()
   @PrimaryGeneratedColumn()
-  @Field()
+  @Field({ nullable: true})
   id: string;
 
   @Field()
@@ -27,19 +27,19 @@ export class User extends BaseEntity {
   @Column()
   password: string;
 
-  @Field()
+  @Field({ nullable: true})
   @Column()
   googleId: string;
 
-  @Field()
+  @Field({ nullable: true})
   @Column()
   avatar: string;
   
-  @Field()
+  @Field({ nullable: true})
   @Column()
   refreshToken: string;
 
-  @Field()
+  @Field({ nullable: true})
   @Column()
   roleId: string;
 

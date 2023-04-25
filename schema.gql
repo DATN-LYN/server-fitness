@@ -6,13 +6,14 @@ type Query {
   loginGoogle(input: LoginInputDto!): LoginResponseDto!
   login(input: LoginInputDto!): LoginResponseDto!
   refreshToken(refreshToken: String!): RefreshTokenResponseDto!
-  getCategory(categoryId: String!): ICategory!
-  getCategories(queryParams: QueryFilterDto!): ICategories!
-  getProgram(programId: String!): IProgram!
-  getABC: Float!
   getInbox(categoryId: String!): IInbox!
   getInboxes(queryParams: QueryFilterDto!): IInboxes!
   getMyInboxes(queryParams: QueryFilterDto!): IInboxes!
+  getCategory(categoryId: String!): ICategory!
+  getCategories(queryParams: QueryFilterDto!): ICategories!
+  getProgram(programId: String!): IProgram!
+  getPrograms(queryParams: QueryFilterDto!): IPrograms!
+  getABC: Float!
 }
 
 type LoginResponseDto {
@@ -23,13 +24,13 @@ type LoginResponseDto {
 }
 
 type User {
-  id: String!
+  id: String
   email: String!
   password: String!
-  googleId: String!
-  avatar: String!
-  refreshToken: String!
-  roleId: String!
+  googleId: String
+  avatar: String
+  refreshToken: String
+  roleId: String
   role: Role
   inboxes: [Inbox!]
 }
@@ -41,6 +42,7 @@ type Role {
 type Inbox {
   id: ID
   message: String
+  isSender: Boolean!
   userId: String!
   user: User
   createdAt: DateTime
@@ -64,17 +66,19 @@ type RefreshTokenResponseDto {
   token: String!
 }
 
-type ICategory {
+type IInbox {
   id: ID
-  name: String
-  imgUrl: String
+  message: String
+  isSender: Boolean!
+  userId: String!
+  user: User
   createdAt: DateTime
   updatedAt: DateTime
 }
 
-type ICategories {
+type IInboxes {
   meta: Meta
-  items: [Category!]
+  items: [Inbox!]
 }
 
 type Meta {
@@ -83,14 +87,6 @@ type Meta {
   itemsPerPage: Float
   totalPages: Float
   currentPage: Float
-}
-
-type Category {
-  id: ID
-  name: String
-  imgUrl: String
-  createdAt: DateTime
-  updatedAt: DateTime
 }
 
 input QueryFilterDto {
@@ -111,35 +107,66 @@ enum FILTER_OPERATOR {
   like
 }
 
+type ICategory {
+  id: ID
+  name: String
+  imgUrl: String
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+type ICategories {
+  meta: Meta
+  items: [Category!]
+}
+
+type Category {
+  id: ID
+  name: String
+  imgUrl: String
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
 type IProgram {
   id: ID
   name: String
+  duration: String
+  calo: Float
+  level: Float
+  bodyPart: String
+  description: String
+  imgUrl: String
   createdAt: DateTime
   updatedAt: DateTime
 }
 
-type IInbox {
-  id: ID
-  message: String
-  userId: String!
-  user: User
-  createdAt: DateTime
-  updatedAt: DateTime
-}
-
-type IInboxes {
+type IPrograms {
   meta: Meta
-  items: [Inbox!]
+  items: [Program!]
+}
+
+type Program {
+  id: ID
+  name: String
+  duration: String
+  calo: Float
+  level: Float
+  bodyPart: String
+  description: String
+  imgUrl: String
+  createdAt: DateTime
+  updatedAt: DateTime
 }
 
 type Mutation {
   register(input: RegisterInputDto!): ResponseMessageBase!
   logout(userId: String!): ResponseMessageBase!
+  upsertInbox(input: UpsertInboxInputDto!): IInbox!
+  deleteInbox(categoryId: String!): ResponseMessageBase!
   upsertCategory(input: UpsertCategoryInputDto!): ICategory!
   deleteCategory(categoryId: String!): ResponseMessageBase!
   upsertProgram(input: UpsertProgramInputDto!): IProgram!
-  upsertInbox(input: UpsertInboxInputDto!): IInboxes!
-  deleteInbox(categoryId: String!): ResponseMessageBase!
 }
 
 type ResponseMessageBase {
@@ -152,6 +179,13 @@ input RegisterInputDto {
   password: String
 }
 
+input UpsertInboxInputDto {
+  id: ID
+  message: String!
+  userId: String!
+  isSender: Boolean!
+}
+
 input UpsertCategoryInputDto {
   id: ID
   name: String!
@@ -160,11 +194,4 @@ input UpsertCategoryInputDto {
 input UpsertProgramInputDto {
   id: ID
   name: String!
-}
-
-input UpsertInboxInputDto {
-  id: ID
-  message: String!
-  userId: String!
-  isSender: Boolean!
 }

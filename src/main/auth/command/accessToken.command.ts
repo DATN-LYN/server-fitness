@@ -36,9 +36,9 @@ export class AccessToken {
     const { accessToken, refreshToken } = await AccessToken.createAccessToken(
       user,
     );
-
+    console.log('------', user);
     return {
-      ...user,
+      user,
       accessToken,
       refreshToken,
     };

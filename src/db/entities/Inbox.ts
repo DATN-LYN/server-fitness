@@ -19,13 +19,12 @@ export class Inbox extends BaseEntity {
   id!: string;
 
   @Field({ nullable: true })
-  // add migration
   @Column()
   message!: string;
 
-  // @Field()
-  // @Column()
-  // isSender!: boolean;
+  @Field()
+  @Column()
+  isSender!: boolean;
 
   @Field()
   @Column()

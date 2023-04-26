@@ -4,6 +4,7 @@ import { GraphQLModule } from '@nestjs/graphql';
 import { GraphQLError } from 'graphql';
 import { AuthModule } from './main/auth/auth.module';
 import { CategoryModule } from './main/category/category.module';
+import { ExerciseModule } from './main/exercise/exercise.module';
 import { InboxModule } from './main/inbox/inbox.module';
 import { ProgramModule } from './main/program/program.module';
 import { RoleModule } from './main/role/role.module';
@@ -25,14 +26,25 @@ import { DatabaseModule } from './module/database.module';
         };
         return graphQLFormattedError;
       },
-      include: [UserModule, RoleModule, ProgramModule, CategoryModule, InboxModule, AuthModule]
+      include: [
+        UserModule, 
+        RoleModule, 
+        ProgramModule, 
+        CategoryModule, 
+        InboxModule,  
+        AuthModule, 
+        ProgramModule, 
+        ExerciseModule,
+      ]
     }),
     UserModule,
     RoleModule,
     ProgramModule,
     CategoryModule,
     InboxModule,
-    AuthModule
+    AuthModule,
+    ProgramModule,
+    ExerciseModule,
   ],
 })
 export class AppModule {}

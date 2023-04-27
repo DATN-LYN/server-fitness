@@ -1,3 +1,4 @@
+import { User } from '@/db/entities/User';
 import { Field, ID, InputType, ObjectType } from '@nestjs/graphql';
 
 @ObjectType({ isAbstract: true })
@@ -6,7 +7,7 @@ export class LoginResponseDto {
   id?: string;
 
   @Field({ nullable: true })
-  email?: string;
+  user?: User;
 
   @Field({ nullable: true })
   accessToken?: string;
@@ -63,14 +64,14 @@ export class CreateAccessTokenDto {
   @Field({ nullable: true })
   email?: string;
 
-  @Field({ nullable: true })
-  avatar?: string;
+  // @Field({ nullable: true })
+  // avatar?: string;
 
-  @Field({ nullable: true })
-  createdAt?: Date;
+  // @Field({ nullable: true })
+  // createdAt?: Date;
 
-  @Field({ nullable: true })
-  updatedAt?: Date;
+  // @Field({ nullable: true })
+  // updatedAt?: Date;
 }
 
 @ObjectType()

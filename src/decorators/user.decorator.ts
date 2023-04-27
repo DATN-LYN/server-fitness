@@ -8,7 +8,7 @@ import { GqlExecutionContext } from '@nestjs/graphql';
 import jwt_decode from 'jwt-decode';
 
 export interface Context {
-  currentUser: any; //Later change to User type
+  currentUser: User; //Later change to User type
   IPAddress: string;
   AccessToken: string;
   Platform: string;
@@ -27,19 +27,25 @@ export const GetContext = createParamDecorator(
       throw new BadRequestException('Permission denied');
     }
 
-    const jwtDecode = jwt_decode<any>(authorization);
+    try{
+      const jwtDecode = jwt_decode<any>(authorization);
 
-    const currentUser = await User.findOne(jwtDecode?.email);
+      const currentUser = await User.findOne(jwtDecode?.email);
+      if (!currentUser) {
+        throw new BadRequestException('User not found');
+      }
 
-    if (!currentUser) {
-      throw new BadRequestException('User not found');
+      return {
+        currentUser,
+        // IPAddress: sourceIp,
+        AccessToken: authorization,
+        Platform: platform,
+      };
     }
+    catch (err){
 
-    return {
-      currentUser,
-      // IPAddress: sourceIp,
-      AccessToken: authorization,
-      Platform: platform,
-    };
+    }
+   
+  
   },
 );

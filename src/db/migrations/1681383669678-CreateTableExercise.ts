@@ -10,6 +10,7 @@ export class CreateTableExercise1681383669678 implements MigrationInterface {
         "video_url" VARCHAR(2048) NULL, 
         "img_url" VARCHAR(2048) NULL,
         "set_num" float NULL, 
+        "calo" float NULL, 
         "program_id" uuid null,
         "created_at" timestamp with time zone DEFAULT NOW(),
         "updated_at" timestamp with time zone DEFAULT NOW(),

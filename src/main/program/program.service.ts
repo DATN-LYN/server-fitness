@@ -1,7 +1,9 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
-import { UpsertProgramInputDto } from './dto';
+import { QueryFilterDto } from '@/common/dto';
 import { Program } from '@/db/entities/Program';
+import { customPaginate } from '@/utils/custom-paginate';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { getManager } from 'typeorm';
+import { UpsertProgramInputDto } from './dto';
 
 @Injectable()
 export class ProgramService {
@@ -25,5 +27,11 @@ export class ProgramService {
     }
 
     return program;
+  }
+
+  async getPrograms(queryParams: QueryFilterDto) {
+    const builder = Program.createQueryBuilder();
+    
+    return await customPaginate<Program>(builder, queryParams);
   }
 }

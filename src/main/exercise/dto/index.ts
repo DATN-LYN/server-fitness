@@ -1,7 +1,7 @@
 import { Field, ID, InputType } from '@nestjs/graphql';
 
 @InputType({ isAbstract: true })
-export class UpsertProgramInputDto {
+export class UpsertExerciseInputDto {
   @Field(() => ID, { nullable: true })
   id: string;
 
@@ -9,21 +9,17 @@ export class UpsertProgramInputDto {
   name: string;
 
   @Field()
-  duration: string;
+  imgUrl: string;
+
+  @Field()
+  duration: number;
+
+  @Field()
+  videoUrl: string;
+
+  @Field()
+  set: number;
 
   @Field()
   calo: number;
-
-  @Field()
-  level: number;
-
-  @Field()
-  bodyPart: string;
-
-  @Field()
-  description: string;
-
-  @Field()
-  imgUrl: string;
-
 }

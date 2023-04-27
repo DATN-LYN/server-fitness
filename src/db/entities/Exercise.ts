@@ -1,16 +1,19 @@
 import { Field, ID, ObjectType } from '@nestjs/graphql';
 import {
-  BaseEntity,
-  Column,
-  Entity,
-  PrimaryGeneratedColumn,
-  BeforeInsert,
-  BeforeUpdate,
+    BaseEntity,
+    BeforeInsert,
+    BeforeUpdate,
+    Column,
+    Entity,
+    JoinColumn,
+    ManyToOne,
+    PrimaryGeneratedColumn,
 } from 'typeorm';
+import { Program } from './Program';
 
 @ObjectType({ isAbstract: true })
-@Entity('program')
-export class Program extends BaseEntity {
+@Entity('exercise')
+export class Exercise extends BaseEntity {
   @Field(() => ID, { nullable: true })
   @PrimaryGeneratedColumn()
   id!: string;
@@ -21,27 +24,32 @@ export class Program extends BaseEntity {
 
   @Field({ nullable: true })
   @Column()
-  duration: string;
+  duration: number;
+
+  @Field({ nullable: true })
+  @Column()
+  videoUrl: string;
+
+  @Field({ nullable: true })
+  @Column()
+  imgUrl: string;
+
+  @Field({ nullable: true })
+  @Column()
+  set: number;
 
   @Field({ nullable: true })
   @Column()
   calo: number;
 
-  @Field({ nullable: true })
+  @Field()
   @Column()
-  level: number;
+  programId!: string;
 
-  @Field({ nullable: true })
-  @Column()
-  bodyPart: string;
-
-  @Field({ nullable: true })
-  @Column()
-  description: string;
-
-  @Field({ nullable: true })
-  @Column()
-  imgUrl: string;
+  @Field(() => Program, { nullable: true })
+  @ManyToOne(() => Program)
+  @JoinColumn({ name: 'program_id' })
+  program: Program;
 
   @Field({ nullable: true })
   @Column()

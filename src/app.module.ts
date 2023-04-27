@@ -1,12 +1,15 @@
+import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { Module } from '@nestjs/common';
 import { GraphQLModule } from '@nestjs/graphql';
-import { ApolloDriverConfig, ApolloDriver } from '@nestjs/apollo';
 import { GraphQLError } from 'graphql';
-import { UserModule } from './main/user/user.module';
-import { RoleModule } from './main/role/role.module';
-import { ProgramModule } from './main/program/program.module';
-import { DatabaseModule } from './module/database.module';
+import { AuthModule } from './main/auth/auth.module';
 import { CategoryModule } from './main/category/category.module';
+import { ExerciseModule } from './main/exercise/exercise.module';
+import { InboxModule } from './main/inbox/inbox.module';
+import { ProgramModule } from './main/program/program.module';
+import { RoleModule } from './main/role/role.module';
+import { UserModule } from './main/user/user.module';
+import { DatabaseModule } from './module/database.module';
 
 @Module({
   imports: [
@@ -23,12 +26,25 @@ import { CategoryModule } from './main/category/category.module';
         };
         return graphQLFormattedError;
       },
-      include: [UserModule, RoleModule, ProgramModule, CategoryModule],
+      include: [
+        UserModule, 
+        RoleModule, 
+        ProgramModule, 
+        CategoryModule, 
+        InboxModule,  
+        AuthModule, 
+        ProgramModule, 
+        ExerciseModule,
+      ]
     }),
     UserModule,
     RoleModule,
     ProgramModule,
     CategoryModule,
+    InboxModule,
+    AuthModule,
+    ProgramModule,
+    ExerciseModule,
   ],
 })
 export class AppModule {}

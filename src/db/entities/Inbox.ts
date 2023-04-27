@@ -1,47 +1,39 @@
 import { Field, ID, ObjectType } from '@nestjs/graphql';
 import {
   BaseEntity,
-  Column,
-  Entity,
-  PrimaryGeneratedColumn,
   BeforeInsert,
   BeforeUpdate,
+  Column,
+  Entity,
+  JoinColumn,
+  ManyToOne,
+  PrimaryGeneratedColumn,
 } from 'typeorm';
+import { User } from './User';
 
 @ObjectType({ isAbstract: true })
-@Entity('program')
-export class Program extends BaseEntity {
+@Entity('inbox')
+export class Inbox extends BaseEntity {
   @Field(() => ID, { nullable: true })
   @PrimaryGeneratedColumn()
   id!: string;
 
   @Field({ nullable: true })
   @Column()
-  name: string;
+  message!: string;
 
-  @Field({ nullable: true })
+  @Field()
   @Column()
-  duration: string;
+  isSender!: boolean;
 
-  @Field({ nullable: true })
+  @Field()
   @Column()
-  calo: number;
+  userId!: string;
 
-  @Field({ nullable: true })
-  @Column()
-  level: number;
-
-  @Field({ nullable: true })
-  @Column()
-  bodyPart: string;
-
-  @Field({ nullable: true })
-  @Column()
-  description: string;
-
-  @Field({ nullable: true })
-  @Column()
-  imgUrl: string;
+  @Field(() => User, { nullable: true })
+  @ManyToOne(() => User)
+  @JoinColumn({ name: 'user_id' })
+  user: User;
 
   @Field({ nullable: true })
   @Column()

@@ -1,4 +1,4 @@
-import jsonwebtoken from 'jsonwebtoken';
+const jsonwebtoken = require('jsonwebtoken');
 import { ObjectLiteral } from 'typeorm';
 
 export class Jwt {

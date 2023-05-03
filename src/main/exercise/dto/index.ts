@@ -18,8 +18,8 @@ export class UpsertExerciseInputDto {
   videoUrl: string;
 
   @Field()
-  set: number;
+  calo: number;
 
   @Field()
-  calo: number;
+  programId: string;
 }

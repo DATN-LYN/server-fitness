@@ -96,4 +96,10 @@ export class RegisterInputDto {
 
   @Field({ nullable: true })
   password: string;
+
+  @Field({ nullable: true })
+  avatar: string;
+
+  @Field({ nullable: true })
+  age: number;
 }

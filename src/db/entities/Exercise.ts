@@ -36,10 +36,6 @@ export class Exercise extends BaseEntity {
 
   @Field({ nullable: true })
   @Column()
-  set: number;
-
-  @Field({ nullable: true })
-  @Column()
   calo: number;
 
   @Field()

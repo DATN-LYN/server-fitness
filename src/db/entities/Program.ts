@@ -1,11 +1,11 @@
 import { Field, ID, ObjectType } from '@nestjs/graphql';
 import {
   BaseEntity,
+  BeforeInsert,
+  BeforeUpdate,
   Column,
   Entity,
   PrimaryGeneratedColumn,
-  BeforeInsert,
-  BeforeUpdate,
 } from 'typeorm';
 
 @ObjectType({ isAbstract: true })
@@ -21,7 +21,7 @@ export class Program extends BaseEntity {
 
   @Field({ nullable: true })
   @Column()
-  duration: string;
+  duration: number;
 
   @Field({ nullable: true })
   @Column()
@@ -33,7 +33,11 @@ export class Program extends BaseEntity {
 
   @Field({ nullable: true })
   @Column()
-  bodyPart: string;
+  view: number;
+
+  @Field({ nullable: true })
+  @Column()
+  bodyPart: number;
 
   @Field({ nullable: true })
   @Column()
@@ -50,7 +54,6 @@ export class Program extends BaseEntity {
   @Field({ nullable: true })
   @Column()
   updatedAt: Date;
-
   @BeforeInsert()
   updateTimestampBeforeInsert() {
     this.createdAt = new Date();

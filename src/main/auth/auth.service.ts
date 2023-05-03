@@ -5,20 +5,21 @@ import {
   UnauthorizedException,
 } from '@nestjs/common';
 import { OAuth2Client } from 'google-auth-library';
+import _ from 'lodash';
 import {
   CreateUserSocial,
   LoginResponseDto,
   RefreshTokenResponseDto,
+  RegisterInputDto,
 } from './dto';
-import _ from 'lodash';
 
 import { User } from '@/db/entities/User';
 import { UserCommand } from '../user/command/user.command';
 import { AccessToken } from './command/accessToken.command';
 // import { JwtAuthGuard } from '@/guards/auth.guard';
-import { getManager } from 'typeorm';
 import { Jwt } from '@/provider/jwt';
 import { PasswordUtil } from '@/provider/password';
+import { getManager } from 'typeorm';
 
 @Injectable()
 export class AuthService {
@@ -94,7 +95,8 @@ export class AuthService {
     return await AccessToken.generateUserWithAccessToken(user);
   }
 
-  async register(email: string, password: string) {
+  async register(input: RegisterInputDto) {
+    const { email, password, avatar, age } = input;
     const user = await UserCommand.findByEmail(email);
     if (user) {
       throw new BadRequestException('User Exists');
@@ -106,7 +108,7 @@ export class AuthService {
       async (transaction) =>
         await transaction
           .getRepository(User)
-          .create({ email, password: hashPassword })
+          .create({ email: email, avatar: avatar, age: age, password: hashPassword })
           .save(),
     );
     return {

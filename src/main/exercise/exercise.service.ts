@@ -1,6 +1,7 @@
 import { QueryFilterDto } from '@/common/dto';
 import { Exercise } from '@/db/entities/Exercise';
 import { customPaginate } from '@/utils/custom-paginate';
+import { extractFilter } from '@/utils/extractFilter';
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { getManager } from 'typeorm';
 import { UpsertExerciseInputDto } from './dto';
@@ -31,6 +32,12 @@ export class ExerciseService {
 
   async getExercises(queryParams: QueryFilterDto) {
     const builder = Exercise.createQueryBuilder();
+
+    extractFilter<Exercise>(
+      builder,
+      queryParams,
+      'Exercise.name',
+    );
     
     return await customPaginate<Exercise>(builder, queryParams);
   }

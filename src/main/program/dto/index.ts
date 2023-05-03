@@ -9,7 +9,7 @@ export class UpsertProgramInputDto {
   name: string;
 
   @Field()
-  duration: string;
+  duration: number;
 
   @Field()
   calo: number;
@@ -18,7 +18,7 @@ export class UpsertProgramInputDto {
   level: number;
 
   @Field()
-  bodyPart: string;
+  bodyPart: number;
 
   @Field()
   description: string;

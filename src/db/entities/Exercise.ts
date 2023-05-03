@@ -1,13 +1,13 @@
 import { Field, ID, ObjectType } from '@nestjs/graphql';
 import {
-    BaseEntity,
-    BeforeInsert,
-    BeforeUpdate,
-    Column,
-    Entity,
-    JoinColumn,
-    ManyToOne,
-    PrimaryGeneratedColumn,
+  BaseEntity,
+  BeforeInsert,
+  BeforeUpdate,
+  Column,
+  Entity,
+  JoinColumn,
+  ManyToOne,
+  PrimaryGeneratedColumn,
 } from 'typeorm';
 import { Program } from './Program';
 
@@ -33,10 +33,6 @@ export class Exercise extends BaseEntity {
   @Field({ nullable: true })
   @Column()
   imgUrl: string;
-
-  @Field({ nullable: true })
-  @Column()
-  set: number;
 
   @Field({ nullable: true })
   @Column()

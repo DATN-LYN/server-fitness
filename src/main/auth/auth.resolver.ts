@@ -1,3 +1,4 @@
+import { ResponseMessageBase } from '@/common/dto';
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { AuthService } from './auth.service';
 import {
@@ -6,7 +7,6 @@ import {
   RefreshTokenResponseDto,
   RegisterInputDto,
 } from './dto';
-import { ResponseMessageBase } from '@/common/dto';
 // import { Auth } from '@/decorators/auth.decorator';
 
 @Resolver()
@@ -29,7 +29,7 @@ export class AuthResolver {
 
   @Mutation(() => ResponseMessageBase, { name: `register` })
   async register(@Args('input') input: RegisterInputDto) {
-    return await this.authService.register(input?.email, input?.password);
+    return await this.authService.register(input);
   }
 
   @Query(() => RefreshTokenResponseDto, { name: `refreshToken` })

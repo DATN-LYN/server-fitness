@@ -1,4 +1,28 @@
-import { Injectable } from '@nestjs/common';
+import { QueryFilterDto } from '@/common/dto';
+import { User } from '@/db/entities/User';
+import { customPaginate } from '@/utils/custom-paginate';
+import { extractFilter } from '@/utils/extractFilter';
+import { Injectable, NotFoundException } from '@nestjs/common';
 
 @Injectable()
-export class UserService {}
+export class UserService {
+    async getUsers(queryParams: QueryFilterDto) {
+        const builder = User.createQueryBuilder();
+        extractFilter<User>(
+          builder,
+          queryParams,
+          'User.fullName',
+        );
+        
+        return await customPaginate<User>(builder, queryParams);
+    }
+
+    async getUser(userId: string) {
+        const user = await User.findOne({ id: userId });
+        if (!user) {
+          throw new NotFoundException('User not found');
+        }
+    
+        return user;
+      }
+}

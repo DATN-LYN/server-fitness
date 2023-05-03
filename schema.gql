@@ -15,7 +15,8 @@ type Query {
   getCategories(queryParams: QueryFilterDto!): ICategories!
   getProgram(programId: String!): IProgram!
   getPrograms(queryParams: QueryFilterDto!): IPrograms!
-  getABC: Float!
+  getUser(userId: String!): IUser!
+  getUsers(queryParams: QueryFilterDto!): IUsers!
 }
 
 type IExercise {
@@ -24,7 +25,6 @@ type IExercise {
   duration: Float
   videoUrl: String
   imgUrl: String
-  set: Float
   calo: Float
   programId: String!
   program: Program
@@ -35,10 +35,11 @@ type IExercise {
 type Program {
   id: ID
   name: String
-  duration: String
+  duration: Float
   calo: Float
   level: Float
-  bodyPart: String
+  view: Float
+  bodyPart: Float
   description: String
   imgUrl: String
   createdAt: DateTime
@@ -69,7 +70,6 @@ type Exercise {
   duration: Float
   videoUrl: String
   imgUrl: String
-  set: Float
   calo: Float
   programId: String!
   program: Program
@@ -105,9 +105,11 @@ type LoginResponseDto {
 type User {
   id: String
   email: String!
+  fullName: String
   password: String!
   googleId: String
   avatar: String
+  age: Float
   refreshToken: String
   roleId: String
   role: Role
@@ -179,10 +181,11 @@ type Category {
 type IProgram {
   id: ID
   name: String
-  duration: String
+  duration: Float
   calo: Float
   level: Float
-  bodyPart: String
+  view: Float
+  bodyPart: Float
   description: String
   imgUrl: String
   createdAt: DateTime
@@ -192,6 +195,25 @@ type IProgram {
 type IPrograms {
   meta: Meta
   items: [Program!]
+}
+
+type IUser {
+  id: String
+  email: String!
+  fullName: String
+  password: String!
+  googleId: String
+  avatar: String
+  age: Float
+  refreshToken: String
+  roleId: String
+  role: Role
+  inboxes: [Inbox!]
+}
+
+type IUsers {
+  meta: Meta
+  items: [User!]
 }
 
 type Mutation {
@@ -211,8 +233,8 @@ input UpsertExerciseInputDto {
   imgUrl: String!
   duration: Float!
   videoUrl: String!
-  set: Float!
   calo: Float!
+  programId: String!
 }
 
 type ResponseMessageBase {
@@ -223,6 +245,8 @@ type ResponseMessageBase {
 input RegisterInputDto {
   email: String
   password: String
+  avatar: String
+  age: Float
 }
 
 input UpsertInboxInputDto {
@@ -235,15 +259,16 @@ input UpsertInboxInputDto {
 input UpsertCategoryInputDto {
   id: ID
   name: String!
+  imgUrl: String!
 }
 
 input UpsertProgramInputDto {
   id: ID
   name: String!
-  duration: String!
+  duration: Float!
   calo: Float!
   level: Float!
-  bodyPart: String!
+  bodyPart: Float!
   description: String!
   imgUrl: String!
 }

@@ -1,6 +1,7 @@
 import { QueryFilterDto } from '@/common/dto';
 import { Program } from '@/db/entities/Program';
 import { customPaginate } from '@/utils/custom-paginate';
+import { extractFilter } from '@/utils/extractFilter';
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { getManager } from 'typeorm';
 import { UpsertProgramInputDto } from './dto';
@@ -31,6 +32,12 @@ export class ProgramService {
 
   async getPrograms(queryParams: QueryFilterDto) {
     const builder = Program.createQueryBuilder();
+    extractFilter<Program>(
+      builder,
+      queryParams,
+      'Program.name',
+      'Program.level',
+    );
     
     return await customPaginate<Program>(builder, queryParams);
   }

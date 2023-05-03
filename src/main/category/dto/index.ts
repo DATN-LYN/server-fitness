@@ -7,4 +7,7 @@ export class UpsertCategoryInputDto {
 
   @Field()
   name: string;
+
+  @Field()
+  imgUrl: string;
 }

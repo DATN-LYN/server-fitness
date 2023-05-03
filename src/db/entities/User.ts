@@ -23,6 +23,10 @@ export class User extends BaseEntity {
   @Column({ unique: true, nullable: true })
   email: string;
 
+  @Field({nullable: true})
+  @Column({nullable: true})
+  fullName: string;
+
   @Field()
   @Column()
   password: string;
@@ -34,6 +38,10 @@ export class User extends BaseEntity {
   @Field({ nullable: true})
   @Column()
   avatar: string;
+
+  @Field({ nullable: true})
+  @Column()
+  age: number;
   
   @Field({ nullable: true})
   @Column()

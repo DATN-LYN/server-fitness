@@ -3,6 +3,7 @@ import { User } from '@/db/entities/User';
 import { customPaginate } from '@/utils/custom-paginate';
 import { extractFilter } from '@/utils/extractFilter';
 import { Injectable, NotFoundException } from '@nestjs/common';
+import { getManager } from 'typeorm';
 
 @Injectable()
 export class UserService {
@@ -24,5 +25,20 @@ export class UserService {
         }
     
         return user;
+    }
+
+    async deleteUser(userId: string) {
+        await getManager()
+          .getRepository(User)
+          .createQueryBuilder()
+          .delete()
+          .where({ id: userId })
+          .returning('id')
+          .execute();
+    
+        return {
+          message: 'true',
+          success: true,
+        };
       }
 }

@@ -1,4 +1,4 @@
-import { QueryFilterDto } from '@/common/dto';
+import { QueryFilterDto, ResponseMessageBase } from '@/common/dto';
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { UpsertExerciseInputDto } from './dto';
 import { ExerciseService } from './exercise.service';
@@ -21,5 +21,10 @@ export class ExerciseResolver {
   @Query(() => IExercises, { name: 'getExercises' })
   async getPrograms(@Args('queryParams') queryParams: QueryFilterDto) {
     return this.exerciseService.getExercises(queryParams);
+  }
+
+  @Mutation(() => ResponseMessageBase, { name: 'deleteExercise' })
+  async deleteExercise(@Args('exerciseId') exerciseId: string) {
+    return this.exerciseService.deleteExercise(exerciseId);
   }
 }

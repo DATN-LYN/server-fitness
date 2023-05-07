@@ -41,4 +41,19 @@ export class ExerciseService {
     
     return await customPaginate<Exercise>(builder, queryParams);
   }
+
+  async deleteExercise(exerciseId: string) {
+    await getManager()
+      .getRepository(Exercise)
+      .createQueryBuilder()
+      .delete()
+      .where({ id: exerciseId })
+      .returning('id')
+      .execute();
+
+    return {
+      message: 'true',
+      success: true,
+    };
+  }
 }

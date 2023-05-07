@@ -198,6 +198,7 @@ type IUsers {
 
 type Mutation {
   upsertExercise(input: UpsertExerciseInputDto!): IExercise!
+  deleteExercise(exerciseId: String!): ResponseMessageBase!
   register(input: RegisterInputDto!): ResponseMessageBase!
   logout(userId: String!): ResponseMessageBase!
   upsertInbox(input: UpsertInboxInputDto!): IInbox!
@@ -205,6 +206,8 @@ type Mutation {
   upsertCategory(input: UpsertCategoryInputDto!): ICategory!
   deleteCategory(categoryId: String!): ResponseMessageBase!
   upsertProgram(input: UpsertProgramInputDto!): IProgram!
+  deleteProgram(programId: String!): ResponseMessageBase!
+  deleteUser(userId: String!): ResponseMessageBase!
 }
 
 input UpsertExerciseInputDto {

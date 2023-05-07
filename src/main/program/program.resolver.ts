@@ -1,4 +1,4 @@
-import { QueryFilterDto } from '@/common/dto';
+import { QueryFilterDto, ResponseMessageBase } from '@/common/dto';
 import { Program } from '@/db/entities/Program';
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { UpsertProgramInputDto } from './dto';
@@ -22,5 +22,10 @@ export class ProgramResolver {
   @Query(() => IPrograms, { name: 'getPrograms' })
   async getPrograms(@Args('queryParams') queryParams: QueryFilterDto) {
     return this.programService.getPrograms(queryParams);
+  }
+
+  @Mutation(() => ResponseMessageBase, { name: 'deleteProgram' })
+  async deleteExercise(@Args('programId') programId: string) {
+    return this.programService.deleteProgram(programId);
   }
 }

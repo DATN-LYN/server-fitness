@@ -1,5 +1,5 @@
-import { QueryFilterDto } from '@/common/dto';
-import { Args, Query, Resolver } from '@nestjs/graphql';
+import { QueryFilterDto, ResponseMessageBase } from '@/common/dto';
+import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { IUser, IUsers } from './interface';
 import { UserService } from './user.service';
 
@@ -15,5 +15,10 @@ export class UserResolver {
   @Query(() => IUsers, { name: 'getUsers' })
   async getPrograms(@Args('queryParams') queryParams: QueryFilterDto) {
     return this.userService.getUsers(queryParams);
+  }
+
+  @Mutation(() => ResponseMessageBase, { name: 'deleteUser' })
+  async deleteExercise(@Args('userId') userId: string) {
+    return this.userService.deleteUser(userId);
   }
 }

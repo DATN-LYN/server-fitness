@@ -41,4 +41,19 @@ export class ProgramService {
     
     return await customPaginate<Program>(builder, queryParams);
   }
+
+  async deleteProgram(programId: string) {
+    await getManager()
+      .getRepository(Program)
+      .createQueryBuilder()
+      .delete()
+      .where({ id: programId })
+      .returning('id')
+      .execute();
+
+    return {
+      message: 'true',
+      success: true,
+    };
+  }
 }

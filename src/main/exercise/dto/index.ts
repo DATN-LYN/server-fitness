@@ -12,7 +12,7 @@ export class UpsertExerciseInputDto {
   imgUrl: string;
 
   @Field()
-  duration: number;
+  duration: string;
 
   @Field()
   videoUrl: string;

@@ -1,4 +1,5 @@
 import { QueryFilterDto } from '@/common/dto';
+import { Program } from '@/db/entities/Program';
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { UpsertProgramInputDto } from './dto';
 import { IProgram, IPrograms } from './interface';
@@ -13,7 +14,7 @@ export class ProgramResolver {
     return this.programService.upsertProgram(input);
   }
 
-  @Query(() => IProgram, { name: 'getProgram' })
+  @Query(() => Program, { name: 'getProgram' })
   async getProgram(@Args('programId') programId: string) {
     return this.programService.getProgram(programId);
   }

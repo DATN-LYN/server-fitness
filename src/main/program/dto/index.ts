@@ -26,4 +26,6 @@ export class UpsertProgramInputDto {
   @Field()
   imgUrl: string;
 
+  @Field()
+  categoryId: string;
 }

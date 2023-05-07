@@ -5,8 +5,11 @@ import {
   BeforeUpdate,
   Column,
   Entity,
+  JoinColumn,
+  ManyToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
+import { Category } from './Category';
 
 @ObjectType({ isAbstract: true })
 @Entity('program')
@@ -47,6 +50,15 @@ export class Program extends BaseEntity {
   @Column()
   imgUrl: string;
 
+  @Field()
+  @Column()
+  categoryId!: string;
+
+  @Field(() => Category, { nullable: true })
+  @ManyToOne(() => Category)
+  @JoinColumn({ name: 'category_id' })
+  category: Category;
+
   @Field({ nullable: true })
   @Column()
   createdAt: Date;
@@ -54,6 +66,7 @@ export class Program extends BaseEntity {
   @Field({ nullable: true })
   @Column()
   updatedAt: Date;
+
   @BeforeInsert()
   updateTimestampBeforeInsert() {
     this.createdAt = new Date();

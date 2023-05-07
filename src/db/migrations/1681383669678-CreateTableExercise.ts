@@ -6,7 +6,7 @@ export class CreateTableExercise1681383669678 implements MigrationInterface {
       CREATE TABLE IF NOT EXISTS "exercise" (
         "id" uuid NOT NULL DEFAULT uuid_generate_v4(),
         "name" VARCHAR(255) NULL,
-        "duration" float NULL,
+        "duration" VARCHAR(255) NULL,
         "video_url" VARCHAR(2048) NULL, 
         "img_url" VARCHAR(2048) NULL,
         "calo" float NULL, 

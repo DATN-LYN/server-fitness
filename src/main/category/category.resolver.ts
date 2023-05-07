@@ -1,8 +1,9 @@
+import { QueryFilterDto, ResponseMessageBase } from '@/common/dto';
+import { Category } from '@/db/entities/Category';
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { CategoryService } from './category.service';
 import { UpsertCategoryInputDto } from './dto';
 import { ICategories, ICategory } from './interface';
-import { QueryFilterDto, ResponseMessageBase } from '@/common/dto';
 
 @Resolver()
 export class CategoryResolver {
@@ -13,7 +14,7 @@ export class CategoryResolver {
     return this.categoryService.upsertCategory(input);
   }
 
-  @Query(() => ICategory, { name: 'getCategory' })
+  @Query(() => Category, { name: 'getCategory' })
   async getCategory(@Args('categoryId') categoryId: string) {
     return this.categoryService.getCategory(categoryId);
   }

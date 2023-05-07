@@ -11,9 +11,9 @@ type Query {
   getInbox(categoryId: String!): IInbox!
   getInboxes(queryParams: QueryFilterDto!): IInboxes!
   getMyInboxes(queryParams: QueryFilterDto!): IInboxes!
-  getCategory(categoryId: String!): ICategory!
+  getCategory(categoryId: String!): Category!
   getCategories(queryParams: QueryFilterDto!): ICategories!
-  getProgram(programId: String!): IProgram!
+  getProgram(programId: String!): Program!
   getPrograms(queryParams: QueryFilterDto!): IPrograms!
   getUser(userId: String!): IUser!
   getUsers(queryParams: QueryFilterDto!): IUsers!
@@ -22,7 +22,7 @@ type Query {
 type IExercise {
   id: ID
   name: String
-  duration: Float
+  duration: String
   videoUrl: String
   imgUrl: String
   calo: Float
@@ -41,6 +41,16 @@ type Program {
   view: Float
   bodyPart: Float
   description: String
+  imgUrl: String
+  categoryId: String!
+  category: Category
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+type Category {
+  id: ID
+  name: String
   imgUrl: String
   createdAt: DateTime
   updatedAt: DateTime
@@ -67,7 +77,7 @@ type Meta {
 type Exercise {
   id: ID
   name: String
-  duration: Float
+  duration: String
   videoUrl: String
   imgUrl: String
   calo: Float
@@ -157,39 +167,9 @@ type IInboxes {
   items: [Inbox!]
 }
 
-type ICategory {
-  id: ID
-  name: String
-  imgUrl: String
-  createdAt: DateTime
-  updatedAt: DateTime
-}
-
 type ICategories {
   meta: Meta
   items: [Category!]
-}
-
-type Category {
-  id: ID
-  name: String
-  imgUrl: String
-  createdAt: DateTime
-  updatedAt: DateTime
-}
-
-type IProgram {
-  id: ID
-  name: String
-  duration: Float
-  calo: Float
-  level: Float
-  view: Float
-  bodyPart: Float
-  description: String
-  imgUrl: String
-  createdAt: DateTime
-  updatedAt: DateTime
 }
 
 type IPrograms {
@@ -231,7 +211,7 @@ input UpsertExerciseInputDto {
   id: ID
   name: String!
   imgUrl: String!
-  duration: Float!
+  duration: String!
   videoUrl: String!
   calo: Float!
   programId: String!
@@ -256,10 +236,34 @@ input UpsertInboxInputDto {
   isSender: Boolean!
 }
 
+type ICategory {
+  id: ID
+  name: String
+  imgUrl: String
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
 input UpsertCategoryInputDto {
   id: ID
   name: String!
   imgUrl: String!
+}
+
+type IProgram {
+  id: ID
+  name: String
+  duration: Float
+  calo: Float
+  level: Float
+  view: Float
+  bodyPart: Float
+  description: String
+  imgUrl: String
+  categoryId: String!
+  category: Category
+  createdAt: DateTime
+  updatedAt: DateTime
 }
 
 input UpsertProgramInputDto {
@@ -271,4 +275,5 @@ input UpsertProgramInputDto {
   bodyPart: Float!
   description: String!
   imgUrl: String!
+  categoryId: String!
 }

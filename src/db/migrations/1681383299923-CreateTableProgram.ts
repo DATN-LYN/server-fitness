@@ -6,8 +6,6 @@ export class CreateTableProgram1681383299923 implements MigrationInterface {
             CREATE TABLE IF NOT EXISTS "program" (
                 "id" uuid NOT NULL DEFAULT uuid_generate_v4(),
                 "name" VARCHAR(255) NOT NULL,
-                "duration" float NULL,
-                "calo" float NULL, 
                 "body_part" int NULL,
                 "level" int NULL, 
                 "view" int NULL, 

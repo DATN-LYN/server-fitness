@@ -4,6 +4,7 @@ import { customPaginate } from '@/utils/custom-paginate';
 import { extractFilter } from '@/utils/extractFilter';
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { getManager } from 'typeorm';
+import { UpsertUserInputDto } from './dto';
 
 @Injectable()
 export class UserService {
@@ -41,4 +42,20 @@ export class UserService {
           success: true,
         };
       }
+
+    async upsertUser(input: UpsertUserInputDto) {
+        const { id } = input;
+    
+        const user = await User.findOne({ id });
+
+        if (!user) {
+          throw new NotFoundException('User not found');
+        }
+        const transaction = getManager();
+        const newUser = transaction
+          .getRepository(User)
+          .merge(user, { ...input });
+    
+        return await transaction.getRepository(User).save(newUser);
+    }
 }

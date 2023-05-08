@@ -200,12 +200,13 @@ type Mutation {
   register(input: RegisterInputDto!): ResponseMessageBase!
   logout(userId: String!): ResponseMessageBase!
   upsertInbox(input: UpsertInboxInputDto!): IInbox!
-  deleteInbox(categoryId: String!): ResponseMessageBase!
+  deleteInbox(inboxId: String!): ResponseMessageBase!
   upsertCategory(input: UpsertCategoryInputDto!): ICategory!
   deleteCategory(categoryId: String!): ResponseMessageBase!
   upsertProgram(input: UpsertProgramInputDto!): IProgram!
   deleteProgram(programId: String!): ResponseMessageBase!
   deleteUser(userId: String!): ResponseMessageBase!
+  upsertUser(input: UpsertUserInputDto!): IUser!
 }
 
 input UpsertExerciseInputDto {
@@ -224,10 +225,11 @@ type ResponseMessageBase {
 }
 
 input RegisterInputDto {
-  email: String
-  password: String
+  email: String!
+  password: String!
   avatar: String
-  age: Float
+  age: Float!
+  fullName: String!
 }
 
 input UpsertInboxInputDto {
@@ -273,4 +275,12 @@ input UpsertProgramInputDto {
   description: String!
   imgUrl: String!
   categoryId: String!
+}
+
+input UpsertUserInputDto {
+  id: ID
+  fullName: String!
+  avatar: String!
+  email: String!
+  age: Float!
 }

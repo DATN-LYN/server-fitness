@@ -33,7 +33,7 @@ export class InboxResolver {
   }
 
   @Mutation(() => ResponseMessageBase, { name: 'deleteInbox' })
-  async deleteInbox(@Args('categoryId') categoryId: string) {
-    return this.inboxService.deleteInbox(categoryId);
+  async deleteInbox(@Args('inboxId') inboxId: string) {
+    return this.inboxService.deleteInbox(inboxId);
   }
 }

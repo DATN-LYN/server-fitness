@@ -24,7 +24,7 @@ export class Exercise extends BaseEntity {
 
   @Field({ nullable: true })
   @Column()
-  duration: string;
+  duration: number;
 
   @Field({ nullable: true })
   @Column()

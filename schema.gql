@@ -22,7 +22,7 @@ type Query {
 type IExercise {
   id: ID
   name: String
-  duration: String
+  duration: Float
   videoUrl: String
   imgUrl: String
   calo: Float
@@ -35,8 +35,6 @@ type IExercise {
 type Program {
   id: ID
   name: String
-  duration: Float
-  calo: Float
   level: Float
   view: Float
   bodyPart: Float
@@ -77,7 +75,7 @@ type Meta {
 type Exercise {
   id: ID
   name: String
-  duration: String
+  duration: Float
   videoUrl: String
   imgUrl: String
   calo: Float
@@ -214,7 +212,7 @@ input UpsertExerciseInputDto {
   id: ID
   name: String!
   imgUrl: String!
-  duration: String!
+  duration: Float!
   videoUrl: String!
   calo: Float!
   programId: String!
@@ -256,8 +254,6 @@ input UpsertCategoryInputDto {
 type IProgram {
   id: ID
   name: String
-  duration: Float
-  calo: Float
   level: Float
   view: Float
   bodyPart: Float
@@ -272,8 +268,6 @@ type IProgram {
 input UpsertProgramInputDto {
   id: ID
   name: String!
-  duration: Float!
-  calo: Float!
   level: Float!
   bodyPart: Float!
   description: String!

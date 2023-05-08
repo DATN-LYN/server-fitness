@@ -24,14 +24,6 @@ export class Program extends BaseEntity {
 
   @Field({ nullable: true })
   @Column()
-  duration: number;
-
-  @Field({ nullable: true })
-  @Column()
-  calo: number;
-
-  @Field({ nullable: true })
-  @Column()
   level: number;
 
   @Field({ nullable: true })

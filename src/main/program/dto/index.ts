@@ -9,12 +9,6 @@ export class UpsertProgramInputDto {
   name: string;
 
   @Field()
-  duration: number;
-
-  @Field()
-  calo: number;
-
-  @Field()
   level: number;
 
   @Field()

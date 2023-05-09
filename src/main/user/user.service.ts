@@ -44,9 +44,9 @@ export class UserService {
       }
 
     async upsertUser(input: UpsertUserInputDto) {
-        const { id } = input;
+        const { email } = input;
     
-        const user = await User.findOne({ id });
+        const user = await User.findOne({ email });
 
         if (!user) {
           throw new NotFoundException('User not found');

@@ -91,15 +91,18 @@ export class RefreshTokenResponseDto {
 
 @InputType({ isAbstract: true })
 export class RegisterInputDto {
-  @Field({ nullable: true })
+  @Field()
   email: string;
 
-  @Field({ nullable: true })
+  @Field()
   password: string;
 
   @Field({ nullable: true })
   avatar: string;
 
-  @Field({ nullable: true })
+  @Field()
   age: number;
+
+  @Field()
+  fullName: string;
 }

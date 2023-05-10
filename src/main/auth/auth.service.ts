@@ -96,7 +96,7 @@ export class AuthService {
   }
 
   async register(input: RegisterInputDto) {
-    const { email, password, avatar, age } = input;
+    const { email, password, avatar, age, fullName } = input;
     const user = await UserCommand.findByEmail(email);
     if (user) {
       throw new BadRequestException('User Exists');
@@ -108,7 +108,7 @@ export class AuthService {
       async (transaction) =>
         await transaction
           .getRepository(User)
-          .create({ email: email, avatar: avatar, age: age, password: hashPassword })
+          .create({ email: email, avatar: avatar, age: age, password: hashPassword, fullName: fullName })
           .save(),
     );
     return {

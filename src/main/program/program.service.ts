@@ -37,6 +37,7 @@ export class ProgramService {
       queryParams,
       'Program.name',
       'Program.level',
+      'Program.categoryId'
     );
     
     return await customPaginate<Program>(builder, queryParams);

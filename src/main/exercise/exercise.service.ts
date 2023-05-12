@@ -37,6 +37,7 @@ export class ExerciseService {
       builder,
       queryParams,
       'Exercise.name',
+      'Exercise.programId',
     );
     
     return await customPaginate<Exercise>(builder, queryParams);

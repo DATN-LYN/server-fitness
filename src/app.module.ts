@@ -9,6 +9,7 @@ import { InboxModule } from './main/inbox/inbox.module';
 import { ProgramModule } from './main/program/program.module';
 import { RoleModule } from './main/role/role.module';
 import { UserModule } from './main/user/user.module';
+import { UserStatisticsModule } from './main/user_statistics/user_statistics.module';
 import { DatabaseModule } from './module/database.module';
 
 @Module({
@@ -35,6 +36,7 @@ import { DatabaseModule } from './module/database.module';
         AuthModule, 
         ProgramModule, 
         ExerciseModule,
+        UserStatisticsModule
       ]
     }),
     UserModule,
@@ -45,6 +47,7 @@ import { DatabaseModule } from './module/database.module';
     AuthModule,
     ProgramModule,
     ExerciseModule,
+    UserStatisticsModule,
   ],
 })
 export class AppModule {}

@@ -3,8 +3,8 @@ import { Field, ID, InputType, ObjectType } from '@nestjs/graphql';
 
 @ObjectType({ isAbstract: true })
 export class LoginResponseDto {
-  @Field(() => ID)
-  id?: string;
+  @Field()
+  id: string;
 
   @Field({ nullable: true })
   user?: User;

@@ -34,7 +34,7 @@ type IUserStatistics {
 }
 
 type User {
-  id: String
+  id: String!
   email: String!
   fullName: String
   password: String!
@@ -162,7 +162,7 @@ type Exercise {
 }
 
 type LoginResponseDto {
-  id: ID!
+  id: String!
   user: User
   accessToken: String
   refreshToken: String
@@ -206,7 +206,7 @@ type IPrograms {
 }
 
 type IUser {
-  id: String
+  id: String!
   email: String!
   fullName: String
   password: String!

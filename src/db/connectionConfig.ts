@@ -6,6 +6,7 @@ import { Inbox } from './entities/Inbox';
 import { Program } from './entities/Program';
 import { Role } from './entities/Role';
 import { User } from './entities/User';
+import { UserStatistics } from './entities/UserStatistics';
 
 export const connectionConfig: ConnectionOptions = {
   type: 'postgres',
@@ -19,7 +20,7 @@ export const connectionConfig: ConnectionOptions = {
     entitiesDir: 'entities',
   },
   // entities: [`${__dirname}/entities/*{.ts,.js}`],
-  entities: [Category, Inbox, User, Role, Program, Exercise],
+  entities: [Category, Inbox, User, Role, Program, Exercise, UserStatistics],
   migrations: [`${__dirname}/migrations/*{.ts,.js}`],
   namingStrategy: new SnakeNamingStrategy(),
 };

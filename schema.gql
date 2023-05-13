@@ -3,12 +3,15 @@
 # ------------------------------------------------------
 
 type Query {
+  getStats(statsId: String!): IUserStatistics!
+  getStatsList(queryParams: QueryFilterDto!): IUserStatisticses!
+  getMyStats(queryParams: QueryFilterDto!): IUserStatisticses!
   getExercise(programId: String!): IExercise!
   getExercises(queryParams: QueryFilterDto!): IExercises!
   loginGoogle(input: LoginInputDto!): LoginResponseDto!
   login(input: LoginInputDto!): LoginResponseDto!
   refreshToken(refreshToken: String!): RefreshTokenResponseDto!
-  getInbox(categoryId: String!): IInbox!
+  getInbox(inboxId: String!): IInbox!
   getInboxes(queryParams: QueryFilterDto!): IInboxes!
   getMyInboxes(queryParams: QueryFilterDto!): IInboxes!
   getCategory(categoryId: String!): Category!
@@ -17,6 +20,92 @@ type Query {
   getPrograms(queryParams: QueryFilterDto!): IPrograms!
   getUser(userId: String!): IUser!
   getUsers(queryParams: QueryFilterDto!): IUsers!
+}
+
+type IUserStatistics {
+  id: ID
+  userId: String!
+  programCount: Float
+  caloCount: Float
+  durationCount: Float
+  user: User
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+type User {
+  id: String
+  email: String!
+  fullName: String
+  password: String!
+  googleId: String
+  avatar: String
+  age: Float
+  refreshToken: String
+  roleId: String
+  role: Role
+  inboxes: [Inbox!]
+}
+
+type Role {
+  id: String!
+}
+
+type Inbox {
+  id: ID
+  message: String
+  isSender: Boolean!
+  userId: String!
+  user: User
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type IUserStatisticses {
+  meta: Meta
+  items: [UserStatistics!]
+}
+
+type Meta {
+  totalItems: Float
+  itemCount: Float
+  itemsPerPage: Float
+  totalPages: Float
+  currentPage: Float
+}
+
+type UserStatistics {
+  id: ID
+  userId: String!
+  programCount: Float
+  caloCount: Float
+  durationCount: Float
+  user: User
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+input QueryFilterDto {
+  limit: Float
+  page: Float
+  orderBy: String
+  filters: [FilterDto!]
+}
+
+input FilterDto {
+  field: String
+  data: String
+  operator: FILTER_OPERATOR
+}
+
+enum FILTER_OPERATOR {
+  eq
+  like
 }
 
 type IExercise {
@@ -54,22 +143,9 @@ type Category {
   updatedAt: DateTime
 }
 
-"""
-A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
-"""
-scalar DateTime
-
 type IExercises {
   meta: Meta
   items: [Exercise!]
-}
-
-type Meta {
-  totalItems: Float
-  itemCount: Float
-  itemsPerPage: Float
-  totalPages: Float
-  currentPage: Float
 }
 
 type Exercise {
@@ -85,57 +161,11 @@ type Exercise {
   updatedAt: DateTime
 }
 
-input QueryFilterDto {
-  limit: Float
-  page: Float
-  orderBy: String
-  filters: [FilterDto!]
-}
-
-input FilterDto {
-  field: String
-  data: String
-  operator: FILTER_OPERATOR
-}
-
-enum FILTER_OPERATOR {
-  eq
-  like
-}
-
 type LoginResponseDto {
   id: ID!
   user: User
   accessToken: String
   refreshToken: String
-}
-
-type User {
-  id: String
-  email: String!
-  fullName: String
-  password: String!
-  googleId: String
-  avatar: String
-  age: Float
-  refreshToken: String
-  roleId: String
-  role: Role
-  inboxes: [Inbox!]
-}
-
-type Role {
-  id: String!
-}
-
-type Inbox {
-  id: ID
-  message: String
-  isSender: Boolean!
-  userId: String!
-  user: User
-  createdAt: DateTime
-  updatedAt: DateTime
 }
 
 input LoginInputDto {
@@ -195,6 +225,8 @@ type IUsers {
 }
 
 type Mutation {
+  upsertStats(input: UpsertUserStatisticsInputDto!): IUserStatistics!
+  deleteStats(statsId: String!): ResponseMessageBase!
   upsertExercise(input: UpsertExerciseInputDto!): IExercise!
   deleteExercise(exerciseId: String!): ResponseMessageBase!
   register(input: RegisterInputDto!): ResponseMessageBase!
@@ -209,6 +241,19 @@ type Mutation {
   upsertUser(input: UpsertUserInputDto!): IUser!
 }
 
+input UpsertUserStatisticsInputDto {
+  id: ID
+  userId: String!
+  programCount: Float!
+  caloCount: Float!
+  durationCount: Float!
+}
+
+type ResponseMessageBase {
+  message: String!
+  success: Boolean!
+}
+
 input UpsertExerciseInputDto {
   id: ID
   name: String!
@@ -217,11 +262,6 @@ input UpsertExerciseInputDto {
   videoUrl: String!
   calo: Float!
   programId: String!
-}
-
-type ResponseMessageBase {
-  message: String!
-  success: Boolean!
 }
 
 input RegisterInputDto {

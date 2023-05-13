@@ -15,8 +15,8 @@ export class InboxResolver {
   }
 
   @Query(() => IInbox, { name: 'getInbox' })
-  async getInbox(@Args('categoryId') categoryId: string) {
-    return this.inboxService.getInbox(categoryId);
+  async getInbox(@Args('inboxId') inboxId: string) {
+    return this.inboxService.getInbox(inboxId);
   }
 
   @Query(() => IInboxes, { name: 'getInboxes' })

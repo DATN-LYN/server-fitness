@@ -6,6 +6,8 @@ import { Inbox } from './entities/Inbox';
 import { Program } from './entities/Program';
 import { Role } from './entities/Role';
 import { User } from './entities/User';
+import { UserExercise } from './entities/UserExercise';
+import { UserProgram } from './entities/UserProgram';
 import { UserStatistics } from './entities/UserStatistics';
 
 export const connectionConfig: ConnectionOptions = {
@@ -20,7 +22,7 @@ export const connectionConfig: ConnectionOptions = {
     entitiesDir: 'entities',
   },
   // entities: [`${__dirname}/entities/*{.ts,.js}`],
-  entities: [Category, Inbox, User, Role, Program, Exercise, UserStatistics],
+  entities: [Category, Inbox, User, Role, Program, Exercise, UserStatistics, UserExercise, UserProgram],
   migrations: [`${__dirname}/migrations/*{.ts,.js}`],
   namingStrategy: new SnakeNamingStrategy(),
 };

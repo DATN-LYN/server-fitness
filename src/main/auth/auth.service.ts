@@ -132,7 +132,7 @@ export class AuthService {
 
     return {
       success: true,
-      message: 'ád',
+      message: 'sucess',
     };
   }
 }

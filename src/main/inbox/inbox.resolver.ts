@@ -1,4 +1,5 @@
 import { QueryFilterDto, ResponseMessageBase } from '@/common/dto';
+import { Context, GetContext } from '@/decorators/user.decorator';
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { UpsertInboxInputDto } from './dto';
 import { InboxService } from './inbox.service';
@@ -25,11 +26,10 @@ export class InboxResolver {
   }
 
   @Query(() => IInboxes, { name: 'getMyInboxes' })
-  async getMyInboxes(@Args('queryParams') queryParams: QueryFilterDto) {
-    //  @GetContext() ctx: Context
-    console.log(queryParams);
+  async getMyInboxes(@Args('queryParams') queryParams: QueryFilterDto,  @GetContext() ctx: Context) {
+
     
-    return this.inboxService.getMyInboxes(queryParams,  'f80200e4-b36b-4803-b5c0-dd0c0ef8cb89');
+    return this.inboxService.getMyInboxes(queryParams, ctx.currentUser.id );
   }
 
   @Mutation(() => ResponseMessageBase, { name: 'deleteInbox' })

@@ -3,6 +3,12 @@
 # ------------------------------------------------------
 
 type Query {
+  getUserProgram(id: String!): IUserProgram!
+  getUserPrograms(queryParams: QueryFilterDto!): IUserPrograms!
+  getMyUserPrograms(queryParams: QueryFilterDto!): IUserPrograms!
+  getUserExercise(id: String!): IUserExercise!
+  getUserExercises(queryParams: QueryFilterDto!): IUserExercises!
+  getMyUserExercises(queryParams: QueryFilterDto!): IUserExercises!
   getStats(statsId: String!): IUserStatistics!
   getStatsList(queryParams: QueryFilterDto!): IUserStatisticses!
   getMyStats(queryParams: QueryFilterDto!): IUserStatisticses!
@@ -20,6 +26,79 @@ type Query {
   getPrograms(queryParams: QueryFilterDto!): IPrograms!
   getUser(userId: String!): IUser!
   getUsers(queryParams: QueryFilterDto!): IUsers!
+}
+
+type IUserProgram {
+  id: ID
+  userId: String!
+  programId: String!
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type IUserPrograms {
+  meta: Meta
+  items: [UserProgram!]
+}
+
+type Meta {
+  totalItems: Float
+  itemCount: Float
+  itemsPerPage: Float
+  totalPages: Float
+  currentPage: Float
+}
+
+type UserProgram {
+  id: ID
+  userId: String!
+  programId: String!
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+input QueryFilterDto {
+  limit: Float
+  page: Float
+  orderBy: String
+  filters: [FilterDto!]
+}
+
+input FilterDto {
+  field: String
+  data: String
+  operator: FILTER_OPERATOR
+}
+
+enum FILTER_OPERATOR {
+  eq
+  like
+}
+
+type IUserExercise {
+  id: ID
+  userId: String!
+  exerciseId: String!
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+type IUserExercises {
+  meta: Meta
+  items: [UserExercise!]
+}
+
+type UserExercise {
+  id: ID
+  userId: String!
+  exerciseId: String!
+  createdAt: DateTime
+  updatedAt: DateTime
 }
 
 type IUserStatistics {
@@ -61,22 +140,9 @@ type Inbox {
   updatedAt: DateTime
 }
 
-"""
-A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
-"""
-scalar DateTime
-
 type IUserStatisticses {
   meta: Meta
   items: [UserStatistics!]
-}
-
-type Meta {
-  totalItems: Float
-  itemCount: Float
-  itemsPerPage: Float
-  totalPages: Float
-  currentPage: Float
 }
 
 type UserStatistics {
@@ -88,24 +154,6 @@ type UserStatistics {
   user: User
   createdAt: DateTime
   updatedAt: DateTime
-}
-
-input QueryFilterDto {
-  limit: Float
-  page: Float
-  orderBy: String
-  filters: [FilterDto!]
-}
-
-input FilterDto {
-  field: String
-  data: String
-  operator: FILTER_OPERATOR
-}
-
-enum FILTER_OPERATOR {
-  eq
-  like
 }
 
 type IExercise {
@@ -225,6 +273,10 @@ type IUsers {
 }
 
 type Mutation {
+  upsertUserProgram(input: UpsertUserProgramInputDto!): IUserProgram!
+  deleteUserProgram(id: String!): ResponseMessageBase!
+  upsertUserExercise(input: UpsertUserExerciseInputDto!): IUserExercise!
+  deleteUserExercise(id: String!): ResponseMessageBase!
   upsertStats(input: UpsertUserStatisticsInputDto!): IUserStatistics!
   deleteStats(statsId: String!): ResponseMessageBase!
   upsertExercise(input: UpsertExerciseInputDto!): IExercise!
@@ -241,17 +293,29 @@ type Mutation {
   upsertUser(input: UpsertUserInputDto!): IUser!
 }
 
+input UpsertUserProgramInputDto {
+  id: ID
+  userId: String!
+  programId: String!
+}
+
+type ResponseMessageBase {
+  message: String!
+  success: Boolean!
+}
+
+input UpsertUserExerciseInputDto {
+  id: ID
+  userId: String!
+  exerciseId: String!
+}
+
 input UpsertUserStatisticsInputDto {
   id: ID
   userId: String!
   programCount: Float!
   caloCount: Float!
   durationCount: Float!
-}
-
-type ResponseMessageBase {
-  message: String!
-  success: Boolean!
 }
 
 input UpsertExerciseInputDto {

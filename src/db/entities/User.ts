@@ -16,7 +16,7 @@ import { Role } from './Role';
 export class User extends BaseEntity {
   @Column()
   @PrimaryGeneratedColumn()
-  @Field({ nullable: true})
+  @Field()
   id: string;
 
   @Field()

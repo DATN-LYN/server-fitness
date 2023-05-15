@@ -37,6 +37,11 @@ export class UserStatisticsService {
     return await customPaginate<UserStatistics>(builder, queryParams);
   }
 
+  async getAllStats() {
+    return UserStatistics.createQueryBuilder().getMany();
+  }
+
+
   async deleteStats(statsId: string) {
     await getManager()
       .getRepository(UserStatistics)

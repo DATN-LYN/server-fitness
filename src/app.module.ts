@@ -9,6 +9,8 @@ import { InboxModule } from './main/inbox/inbox.module';
 import { ProgramModule } from './main/program/program.module';
 import { RoleModule } from './main/role/role.module';
 import { UserModule } from './main/user/user.module';
+import { UserExerciseModule } from './main/user_exercise/user_exercise.module';
+import { UserProgramModule } from './main/user_program/user_program.module';
 import { UserStatisticsModule } from './main/user_statistics/user_statistics.module';
 import { DatabaseModule } from './module/database.module';
 
@@ -36,7 +38,9 @@ import { DatabaseModule } from './module/database.module';
         AuthModule, 
         ProgramModule, 
         ExerciseModule,
-        UserStatisticsModule
+        UserStatisticsModule,
+        UserExerciseModule,
+        UserProgramModule
       ]
     }),
     UserModule,
@@ -48,6 +52,8 @@ import { DatabaseModule } from './module/database.module';
     ProgramModule,
     ExerciseModule,
     UserStatisticsModule,
+    UserExerciseModule,
+    UserProgramModule
   ],
 })
 export class AppModule {}

@@ -1,4 +1,5 @@
 import { QueryFilterDto, ResponseMessageBase } from '@/common/dto';
+import { Context, GetContext } from '@/decorators/user.decorator';
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { UpsertUserStatisticsInputDto } from './dto';
 import { IUserStatistics, IUserStatisticses } from './interface';
@@ -25,11 +26,15 @@ export class UserStatisticsResolver {
   }
 
   @Query(() => IUserStatisticses, { name: 'getMyStats' })
-  async getMyStats(@Args('queryParams') queryParams: QueryFilterDto) {
-    //  @GetContext() ctx: Context
-    console.log(queryParams);
+  async getMyStats(@Args('queryParams') queryParams: QueryFilterDto, @GetContext() ctx: Context) {
     
-    return this.statsService.getMyStats(queryParams,  'f80200e4-b36b-4803-b5c0-dd0c0ef8cb89');
+    return this.statsService.getMyStats(queryParams, ctx.currentUser.id);
+  }
+
+  @Query(() => IUserStatisticses, { name: 'getAllStats' })
+  async getAllStats() {
+    
+    return this.statsService.getAllStats();
   }
 
   @Mutation(() => ResponseMessageBase, { name: 'deleteStats' })

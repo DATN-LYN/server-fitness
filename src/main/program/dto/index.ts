@@ -22,4 +22,7 @@ export class UpsertProgramInputDto {
 
   @Field()
   categoryId: string;
+
+  @Field()
+  view: number;
 }

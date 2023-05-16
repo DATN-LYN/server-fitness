@@ -31,7 +31,7 @@ export class ExerciseService {
   }
 
   async getExercises(queryParams: QueryFilterDto) {
-    const builder = Exercise.createQueryBuilder();
+    const builder = Exercise.createQueryBuilder().leftJoinAndSelect('Exercise.program', 'program');
 
     extractFilter<Exercise>(
       builder,

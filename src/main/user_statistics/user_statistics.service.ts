@@ -1,6 +1,7 @@
 import { QueryFilterDto } from '@/common/dto';
 import { UserStatistics } from '@/db/entities/UserStatistics';
 import { customPaginate } from '@/utils/custom-paginate';
+import { extractFilter } from '@/utils/extractFilter';
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { getManager } from 'typeorm';
 import { UpsertUserStatisticsInputDto } from './dto';
@@ -33,12 +34,14 @@ export class UserStatisticsService {
 
   async getMyStats(queryParams: QueryFilterDto, userId:string) {
     const builder = UserStatistics.createQueryBuilder().where({ userId });
+    extractFilter<UserStatistics>(
+      builder,
+      queryParams,
+      'UserStatistics.createdAt',
+      'UserStatistics.updatedAt'
+    );
 
     return await customPaginate<UserStatistics>(builder, queryParams);
-  }
-
-  async getAllStats() {
-    return UserStatistics.createQueryBuilder().getMany();
   }
 
 

@@ -31,13 +31,14 @@ export class ProgramService {
   }
 
   async getPrograms(queryParams: QueryFilterDto) {
-    const builder = Program.createQueryBuilder();
+    const builder = Program.createQueryBuilder().leftJoinAndSelect('Program.category', 'category');
     extractFilter<Program>(
       builder,
       queryParams,
       'Program.name',
       'Program.level',
-      'Program.categoryId'
+      'Program.categoryId',
+      'Program.createdAt'
     );
     
     return await customPaginate<Program>(builder, queryParams);

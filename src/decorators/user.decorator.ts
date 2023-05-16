@@ -30,7 +30,7 @@ export const GetContext = createParamDecorator(
     try{
       const jwtDecode = jwt_decode<any>(authorization);
 
-      const currentUser = await User.findOne(jwtDecode?.email);
+      const currentUser = await User.findOne({ email: jwtDecode?.email });
       if (!currentUser) {
         throw new BadRequestException('User not found');
       }

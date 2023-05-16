@@ -12,7 +12,6 @@ type Query {
   getStats(statsId: String!): IUserStatistics!
   getStatsList(queryParams: QueryFilterDto!): IUserStatisticses!
   getMyStats(queryParams: QueryFilterDto!): IUserStatisticses!
-  getAllStats: IUserStatisticses!
   getExercise(programId: String!): IExercise!
   getExercises(queryParams: QueryFilterDto!): IExercises!
   loginGoogle(input: LoginInputDto!): LoginResponseDto!
@@ -79,6 +78,9 @@ input FilterDto {
 enum FILTER_OPERATOR {
   eq
   like
+  in
+  lt
+  gt
 }
 
 type IUserExercise {

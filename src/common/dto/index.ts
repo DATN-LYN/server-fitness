@@ -24,7 +24,7 @@ registerEnumType(FILTER_OPERATOR, {
 @InputType({ isAbstract: true })
 export class FilterDto {
   @Field({ nullable: true })
-  field: string;
+  field: string ;
 
   @Field({ nullable: true })
   data: string;

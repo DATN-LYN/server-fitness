@@ -25,6 +25,24 @@ export function extractFilter<T>(
         });
       }
 
+      if (filter.operator === FILTER_OPERATOR.in) {
+        queryBuilder.andWhere(`${filter.field} IN (:...operatorIn)`, {
+          operatorIn: filter.data.split(','),
+        });
+      }
+
+      if (filter.operator === FILTER_OPERATOR.lt) {
+        queryBuilder.andWhere(`${filter.field} <= :operatorLt`, {
+          operatorLt: filter.data,
+        });
+      }
+
+      if (filter.operator === FILTER_OPERATOR.gt) {
+        queryBuilder.andWhere(`${filter.field} >= :operatorGt`, {
+          operatorGt: filter.data,
+        });
+      }
+
       filterParams.push(filter.data);
     }
   });

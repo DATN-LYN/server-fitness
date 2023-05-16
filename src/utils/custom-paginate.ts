@@ -10,11 +10,12 @@ export async function customPaginate<T>(
     const order = orderBy.substring(orderBy.indexOf(':') + 1, orderBy.length);
     queryBuilder.orderBy(sort, order == 'ASC' ? 'ASC' : 'DESC');
   }
-  const offset = (page - 1) * limit;
-  const [data, count] = await queryBuilder
-    .skip(offset)
-    .take(limit)
-    .getManyAndCount();
+
+  if (page && limit) {
+    const offset = (page - 1) * limit;
+    queryBuilder.skip(offset).take(limit);
+  }
+  const [data, count] = await queryBuilder.getManyAndCount();
   return {
     items: data,
     meta: {

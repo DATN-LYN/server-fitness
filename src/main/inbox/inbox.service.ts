@@ -26,7 +26,7 @@ export class InboxService {
     return inbox;
   }
   async getInboxes(queryParams: QueryFilterDto) {
-    const builder = Inbox.createQueryBuilder();
+    const builder = Inbox.createQueryBuilder().leftJoinAndSelect('Inbox.user', 'user');
 
     return await customPaginate<Inbox>(builder, queryParams);
   }

@@ -31,12 +31,6 @@ export class UserStatisticsResolver {
     return this.statsService.getMyStats(queryParams, ctx.currentUser.id);
   }
 
-  @Query(() => IUserStatisticses, { name: 'getAllStats' })
-  async getAllStats() {
-    
-    return this.statsService.getAllStats();
-  }
-
   @Mutation(() => ResponseMessageBase, { name: 'deleteStats' })
   async deleteInbox(@Args('statsId') statsId: string) {
     return this.statsService.deleteStats(statsId);

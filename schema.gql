@@ -131,6 +131,7 @@ type User {
 
 type Role {
   id: String!
+  name: String!
 }
 
 type Inbox {

@@ -10,5 +10,6 @@ export class Role extends BaseEntity {
   id: string;
 
   @Column()
+  @Field()
   name: string;
 }

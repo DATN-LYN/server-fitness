@@ -10,6 +10,8 @@ import {
 } from 'typeorm';
 import { Inbox } from './Inbox';
 import { Role } from './Role';
+import { UserProgram } from './UserProgram';
+import { UserExercise } from './UserExercise';
 
 @ObjectType({ isAbstract: true })
 @Entity('user')
@@ -59,4 +61,12 @@ export class User extends BaseEntity {
   @Field(() => [Inbox], { nullable: true })
   @OneToMany(() => Inbox, inbox => inbox.userId)
   inboxes: Inbox[];
+
+  @Field(() => [UserProgram], { nullable: true })
+  @OneToMany(() => UserProgram, userProgram => userProgram.user)
+  userPrograms: UserProgram[];
+
+  @Field(() => [UserExercise], { nullable: true })
+  @OneToMany(() => UserExercise, userExercise => userExercise.user)
+  userExercises: UserExercise[];
 }

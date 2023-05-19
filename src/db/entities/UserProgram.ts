@@ -5,8 +5,12 @@ import {
     BeforeUpdate,
     Column,
     Entity,
+    JoinColumn,
+    ManyToOne,
     PrimaryGeneratedColumn
 } from 'typeorm';
+import { User } from './User';
+import { Program } from './Program';
 
 @ObjectType({ isAbstract: true })
 @Entity('user_program')
@@ -22,6 +26,16 @@ export class UserProgram extends BaseEntity {
   @Field()
   @Column()
   programId!: string;
+
+  @Field(() => User, { nullable: true })
+  @ManyToOne(() => User)
+  @JoinColumn({ name: 'user_id' })
+  user: User;
+
+  @Field(() => Program, { nullable: true })
+  @ManyToOne(() => Program)
+  @JoinColumn({ name: 'program_id' })
+  program: Program;
   
   @Field({ nullable: true })
   @Column()

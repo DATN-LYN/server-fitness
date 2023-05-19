@@ -25,6 +25,7 @@ type Query {
   getProgram(programId: String!): Program!
   getPrograms(queryParams: QueryFilterDto!): IPrograms!
   getUser(userId: String!): IUser!
+  getCurrentUser: IUser!
   getUsers(queryParams: QueryFilterDto!): IUsers!
 }
 
@@ -32,6 +33,39 @@ type IUserProgram {
   id: ID
   userId: String!
   programId: String!
+  user: User
+  program: Program
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+type User {
+  id: String!
+  email: String!
+  fullName: String
+  password: String!
+  googleId: String
+  avatar: String
+  age: Float
+  refreshToken: String
+  roleId: String
+  role: Role
+  inboxes: [Inbox!]
+  userPrograms: [UserProgram!]
+  userExercises: [UserExercise!]
+}
+
+type Role {
+  id: String!
+  name: String!
+}
+
+type Inbox {
+  id: ID
+  message: String
+  isSender: Boolean!
+  userId: String!
+  user: User
   createdAt: DateTime
   updatedAt: DateTime
 }
@@ -40,6 +74,61 @@ type IUserProgram {
 A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
 """
 scalar DateTime
+
+type UserProgram {
+  id: ID
+  userId: String!
+  programId: String!
+  user: User
+  program: Program
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+type Program {
+  id: ID
+  name: String
+  level: Float
+  view: Float
+  bodyPart: Float
+  description: String
+  imgUrl: String
+  categoryId: String!
+  category: Category
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+type Category {
+  id: ID
+  name: String
+  imgUrl: String
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+type UserExercise {
+  id: ID
+  userId: String!
+  exerciseId: String!
+  user: User
+  exercise: Exercise
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+type Exercise {
+  id: ID
+  name: String
+  duration: Float
+  videoUrl: String
+  imgUrl: String
+  calo: Float
+  programId: String!
+  program: Program
+  createdAt: DateTime
+  updatedAt: DateTime
+}
 
 type IUserPrograms {
   meta: Meta
@@ -52,14 +141,6 @@ type Meta {
   itemsPerPage: Float
   totalPages: Float
   currentPage: Float
-}
-
-type UserProgram {
-  id: ID
-  userId: String!
-  programId: String!
-  createdAt: DateTime
-  updatedAt: DateTime
 }
 
 input QueryFilterDto {
@@ -87,6 +168,8 @@ type IUserExercise {
   id: ID
   userId: String!
   exerciseId: String!
+  user: User
+  exercise: Exercise
   createdAt: DateTime
   updatedAt: DateTime
 }
@@ -96,49 +179,12 @@ type IUserExercises {
   items: [UserExercise!]
 }
 
-type UserExercise {
-  id: ID
-  userId: String!
-  exerciseId: String!
-  createdAt: DateTime
-  updatedAt: DateTime
-}
-
 type IUserStatistics {
   id: ID
   userId: String!
   programCount: Float
   caloCount: Float
   durationCount: Float
-  user: User
-  createdAt: DateTime
-  updatedAt: DateTime
-}
-
-type User {
-  id: String!
-  email: String!
-  fullName: String
-  password: String!
-  googleId: String
-  avatar: String
-  age: Float
-  refreshToken: String
-  roleId: String
-  role: Role
-  inboxes: [Inbox!]
-}
-
-type Role {
-  id: String!
-  name: String!
-}
-
-type Inbox {
-  id: ID
-  message: String
-  isSender: Boolean!
-  userId: String!
   user: User
   createdAt: DateTime
   updatedAt: DateTime
@@ -173,44 +219,9 @@ type IExercise {
   updatedAt: DateTime
 }
 
-type Program {
-  id: ID
-  name: String
-  level: Float
-  view: Float
-  bodyPart: Float
-  description: String
-  imgUrl: String
-  categoryId: String!
-  category: Category
-  createdAt: DateTime
-  updatedAt: DateTime
-}
-
-type Category {
-  id: ID
-  name: String
-  imgUrl: String
-  createdAt: DateTime
-  updatedAt: DateTime
-}
-
 type IExercises {
   meta: Meta
   items: [Exercise!]
-}
-
-type Exercise {
-  id: ID
-  name: String
-  duration: Float
-  videoUrl: String
-  imgUrl: String
-  calo: Float
-  programId: String!
-  program: Program
-  createdAt: DateTime
-  updatedAt: DateTime
 }
 
 type LoginResponseDto {
@@ -269,6 +280,8 @@ type IUser {
   roleId: String
   role: Role
   inboxes: [Inbox!]
+  userPrograms: [UserProgram!]
+  userExercises: [UserExercise!]
 }
 
 type IUsers {

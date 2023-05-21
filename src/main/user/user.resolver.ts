@@ -1,4 +1,5 @@
 import { QueryFilterDto, ResponseMessageBase } from '@/common/dto';
+import { Context, GetContext } from '@/decorators/user.decorator';
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { UpsertUserInputDto } from './dto';
 import { IUser, IUsers } from './interface';
@@ -11,6 +12,12 @@ export class UserResolver {
   @Query(() => IUser, { name: 'getUser' })
   async getUser(@Args('userId') userId: string) {
     return this.userService.getUser(userId);
+  }
+
+
+  @Query(() => IUser, { name: 'getCurrentUser' })
+  async getCurrentUser(@GetContext() ctx: Context) {
+    return this.userService.getCurrentUser(ctx.currentUser.id);
   }
 
   @Query(() => IUsers, { name: 'getUsers' })

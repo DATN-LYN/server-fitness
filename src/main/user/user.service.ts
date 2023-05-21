@@ -20,13 +20,40 @@ export class UserService {
     }
 
     async getUser(userId: string) {
-        const user = await User.findOne({ id: userId });
+        const user = User.findOne({ 
+          where: { id: userId }, 
+          relations: [
+            'userPrograms',
+            'userPrograms.program',
+            'userExercises',
+            'userExercises.exercise'
+          ]
+        });
+
         if (!user) {
           throw new NotFoundException('User not found');
         }
     
         return user;
     }
+
+    async getCurrentUser(userId: string) {
+      const user = User.findOne({ 
+        where: { id: userId }, 
+        relations: [
+          'userPrograms',
+          'userPrograms.program',
+          'userExercises',
+          'userExercises.exercise'
+        ]
+      });
+
+      if (!user) {
+        throw new NotFoundException('User not found');
+      }
+  
+      return user;
+  }
 
     async deleteUser(userId: string) {
         await getManager()

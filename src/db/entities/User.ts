@@ -25,6 +25,10 @@ export class User extends BaseEntity {
   @Column({ unique: true, nullable: true })
   email: string;
 
+  @Field({ nullable: true})
+  @Column({ select: false, insert: false, update: false, nullable: true })
+  countPrograms: number;
+
   @Field({nullable: true})
   @Column({nullable: true})
   fullName: string;

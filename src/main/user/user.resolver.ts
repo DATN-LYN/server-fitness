@@ -25,6 +25,15 @@ export class UserResolver {
     return this.userService.getUsers(queryParams);
   }
 
+  @Query(() => IUsers, { name: 'getUsersABC' })
+  async getUsersABC(@Args('queryParams') queryParams: QueryFilterDto) {
+    console.log(await this.userService.getUsersABC(queryParams));
+    
+    return this.userService.getUsersABC(queryParams);
+  }
+
+  
+
   @Mutation(() => ResponseMessageBase, { name: 'deleteUser' })
   async deleteUser(@Args('userId') userId: string) {
     return this.userService.deleteUser(userId);

@@ -27,6 +27,7 @@ type Query {
   getUser(userId: String!): IUser!
   getCurrentUser: IUser!
   getUsers(queryParams: QueryFilterDto!): IUsers!
+  getUsersABC(queryParams: QueryFilterDto!): IUsers!
 }
 
 type IUserProgram {
@@ -42,6 +43,7 @@ type IUserProgram {
 type User {
   id: String!
   email: String!
+  countPrograms: Float
   fullName: String
   password: String!
   googleId: String
@@ -271,6 +273,7 @@ type IPrograms {
 type IUser {
   id: String!
   email: String!
+  countPrograms: Float
   fullName: String
   password: String!
   googleId: String

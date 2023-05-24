@@ -2,7 +2,7 @@ import { QueryFilterDto, ResponseMessageBase } from '@/common/dto';
 import { Program } from '@/db/entities/Program';
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { UpsertProgramInputDto } from './dto';
-import { IProgram, IPrograms } from './interface';
+import { IProgram, IPrograms, ISummary } from './interface';
 import { ProgramService } from './program.service';
 
 @Resolver()
@@ -17,6 +17,11 @@ export class ProgramResolver {
   @Query(() => Program, { name: 'getProgram' })
   async getProgram(@Args('programId') programId: string) {
     return this.programService.getProgram(programId);
+  }
+
+  @Query(() => ISummary, { name: 'getProgramCountBABCBCBCBC' })
+  async getProgramCountBABCBCBCBC() {
+    return this.programService.getProgramCountBABCBCBCBC();
   }
 
   @Query(() => IPrograms, { name: 'getPrograms' })

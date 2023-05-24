@@ -25,14 +25,12 @@ export class UserResolver {
     return this.userService.getUsers(queryParams);
   }
 
-  @Query(() => IUsers, { name: 'getUsersABC' })
-  async getUsersABC(@Args('queryParams') queryParams: QueryFilterDto) {
-    console.log(await this.userService.getUsersABC(queryParams));
+  @Query(() => IUsers, { name: 'getTopUsersProgram' })
+  async getTopUsersProgram(@Args('queryParams') queryParams: QueryFilterDto) {
+    console.log(await this.userService.getTopUsersProgram(queryParams));
     
-    return this.userService.getUsersABC(queryParams);
-  }
-
-  
+    return this.userService.getTopUsersProgram(queryParams);
+  }  
 
   @Mutation(() => ResponseMessageBase, { name: 'deleteUser' })
   async deleteUser(@Args('userId') userId: string) {

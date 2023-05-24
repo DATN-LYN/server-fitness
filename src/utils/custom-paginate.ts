@@ -15,7 +15,12 @@ export async function customPaginate<T>(
     const offset = (page - 1) * limit;
     queryBuilder.skip(offset).take(limit);
   }
+  const a = queryBuilder;
+  console.log('=====', await queryBuilder.getMany());
+  
   const [data, count] = await queryBuilder.getManyAndCount();
+  console.log({data});
+  
   return {
     items: data,
     meta: {

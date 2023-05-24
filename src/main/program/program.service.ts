@@ -5,6 +5,9 @@ import { extractFilter } from '@/utils/extractFilter';
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { getManager } from 'typeorm';
 import { UpsertProgramInputDto } from './dto';
+import { User } from '@/db/entities/User';
+import { Exercise } from '@/db/entities/Exercise';
+import { Category } from '@/db/entities/Category';
 
 @Injectable()
 export class ProgramService {
@@ -57,5 +60,18 @@ export class ProgramService {
       message: 'true',
       success: true,
     };
+  }
+
+  async getProgramCountBABCBCBCBC() {
+    const [userCnt, programCnt, exerciseCnt, categoryCnt] = await Promise.all([
+      User.count(),
+      Program.count(),
+      Exercise.count(),
+      Category.count()
+    ]);
+
+    return {
+      userCnt, programCnt, exerciseCnt, categoryCnt
+    }
   }
 }

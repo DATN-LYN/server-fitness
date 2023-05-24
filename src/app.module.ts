@@ -8,6 +8,7 @@ import { ExerciseModule } from './main/exercise/exercise.module';
 import { InboxModule } from './main/inbox/inbox.module';
 import { ProgramModule } from './main/program/program.module';
 import { RoleModule } from './main/role/role.module';
+import { SupportModule } from './main/suppport/support.module';
 import { UserModule } from './main/user/user.module';
 import { UserExerciseModule } from './main/user_exercise/user_exercise.module';
 import { UserProgramModule } from './main/user_program/user_program.module';
@@ -40,7 +41,9 @@ import { DatabaseModule } from './module/database.module';
         ExerciseModule,
         UserStatisticsModule,
         UserExerciseModule,
-        UserProgramModule
+        UserProgramModule,
+        SupportModule
+
       ]
     }),
     UserModule,
@@ -53,7 +56,8 @@ import { DatabaseModule } from './module/database.module';
     ExerciseModule,
     UserStatisticsModule,
     UserExerciseModule,
-    UserProgramModule
+    UserProgramModule,
+    SupportModule
   ],
 })
 export class AppModule {}

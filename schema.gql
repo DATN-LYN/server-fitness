@@ -3,6 +3,9 @@
 # ------------------------------------------------------
 
 type Query {
+  getSupport(supportId: String!): ISupport!
+  getSupports(queryParams: QueryFilterDto!): ISupports!
+  getMySupports(queryParams: QueryFilterDto!): ISupports!
   getUserProgram(id: String!): IUserProgram!
   getUserPrograms(queryParams: QueryFilterDto!): IUserPrograms!
   getMyUserPrograms(queryParams: QueryFilterDto!): IUserPrograms!
@@ -23,11 +26,64 @@ type Query {
   getCategory(categoryId: String!): Category!
   getCategories(queryParams: QueryFilterDto!): ICategories!
   getProgram(programId: String!): Program!
+  getProgramCountBABCBCBCBC: ISummary!
   getPrograms(queryParams: QueryFilterDto!): IPrograms!
   getUser(userId: String!): IUser!
   getCurrentUser: IUser!
   getUsers(queryParams: QueryFilterDto!): IUsers!
-  getUsersABC(queryParams: QueryFilterDto!): IUsers!
+  getTopUsersProgram(queryParams: QueryFilterDto!): IUsers!
+}
+
+type ISupport {
+  id: String!
+  userId: String
+  email: String!
+  description: String!
+  imgUrl: String!
+  isRead: Boolean!
+}
+
+type ISupports {
+  meta: Meta
+  items: [Support!]
+}
+
+type Meta {
+  totalItems: Float
+  itemCount: Float
+  itemsPerPage: Float
+  totalPages: Float
+  currentPage: Float
+}
+
+type Support {
+  id: String!
+  userId: String
+  email: String!
+  description: String!
+  imgUrl: String!
+  isRead: Boolean!
+}
+
+input QueryFilterDto {
+  limit: Float
+  page: Float
+  orderBy: String
+  filters: [FilterDto!]
+}
+
+input FilterDto {
+  field: String
+  data: String
+  operator: FILTER_OPERATOR
+}
+
+enum FILTER_OPERATOR {
+  eq
+  like
+  in
+  lt
+  gt
 }
 
 type IUserProgram {
@@ -43,7 +99,8 @@ type IUserProgram {
 type User {
   id: String!
   email: String!
-  countPrograms: Float
+  countProgram: Float
+  countInbox: Float
   fullName: String
   password: String!
   googleId: String
@@ -135,35 +192,6 @@ type Exercise {
 type IUserPrograms {
   meta: Meta
   items: [UserProgram!]
-}
-
-type Meta {
-  totalItems: Float
-  itemCount: Float
-  itemsPerPage: Float
-  totalPages: Float
-  currentPage: Float
-}
-
-input QueryFilterDto {
-  limit: Float
-  page: Float
-  orderBy: String
-  filters: [FilterDto!]
-}
-
-input FilterDto {
-  field: String
-  data: String
-  operator: FILTER_OPERATOR
-}
-
-enum FILTER_OPERATOR {
-  eq
-  like
-  in
-  lt
-  gt
 }
 
 type IUserExercise {
@@ -265,6 +293,13 @@ type ICategories {
   items: [Category!]
 }
 
+type ISummary {
+  userCnt: Float
+  programCnt: Float
+  exerciseCnt: Float
+  categoryCnt: Float
+}
+
 type IPrograms {
   meta: Meta
   items: [Program!]
@@ -273,7 +308,8 @@ type IPrograms {
 type IUser {
   id: String!
   email: String!
-  countPrograms: Float
+  countProgram: Float
+  countInbox: Float
   fullName: String
   password: String!
   googleId: String
@@ -293,6 +329,8 @@ type IUsers {
 }
 
 type Mutation {
+  upsertSupport(input: UpsertSupportInputDto!): ISupport!
+  deleteSupport(supportId: String!): ResponseMessageBase!
   upsertUserProgram(input: UpsertUserProgramInputDto!): IUserProgram!
   deleteUserProgram(id: String!): ResponseMessageBase!
   upsertUserExercise(input: UpsertUserExerciseInputDto!): IUserExercise!
@@ -313,15 +351,22 @@ type Mutation {
   upsertUser(input: UpsertUserInputDto!): IUser!
 }
 
-input UpsertUserProgramInputDto {
+input UpsertSupportInputDto {
   id: ID
-  userId: String!
-  programId: String!
+  email: String!
+  description: String!
+  imgUrl: String!
 }
 
 type ResponseMessageBase {
   message: String!
   success: Boolean!
+}
+
+input UpsertUserProgramInputDto {
+  id: ID
+  userId: String!
+  programId: String!
 }
 
 input UpsertUserExerciseInputDto {

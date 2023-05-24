@@ -19,10 +19,12 @@ export class UserService {
         return await customPaginate<User>(builder, queryParams);
     }
 
-    async getUsersABC(queryParams: QueryFilterDto) {
-      const builder = User.createQueryBuilder().leftJoin(
-        'User.userPrograms', 'userPrograms'
-      ).addSelect('COUNT(userPrograms.id)', 'countPrograms').groupBy('User.id');
+    async getTopUsersProgram(queryParams: QueryFilterDto) {
+      const builder = User.createQueryBuilder()
+        .leftJoin('User.userPrograms', 'userPrograms')
+        .addSelect('COUNT(userPrograms.id)', 'User_count_program')
+        .groupBy('User.id');
+
       extractFilter<User>(
         builder,
         queryParams,

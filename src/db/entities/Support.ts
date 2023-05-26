@@ -1,5 +1,6 @@
 import { Field, ObjectType } from "@nestjs/graphql";
-import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { BaseEntity, BeforeInsert, BeforeUpdate, Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { User } from "./User";
 
 @ObjectType({ isAbstract: true })
 @Entity('support')
@@ -13,13 +14,14 @@ export class Support extends BaseEntity {
   @Field({nullable: true })
   userId: string;
 
-  @Field()
-  @Column({nullable: true })
-  email: string; 
+  @Field(() => User, { nullable: true })
+  @ManyToOne(() => User)
+  @JoinColumn({ name: 'user_id' })
+  user: User;
 
   @Field()
   @Column({nullable: true })
-  description: string; 
+  content: string; 
 
   @Field()
   @Column({ nullable: true })
@@ -28,4 +30,23 @@ export class Support extends BaseEntity {
   @Field()
   @Column({nullable: true })
   isRead: boolean; 
+
+  @Field({ nullable: true })
+  @Column()
+  createdAt: Date;
+
+  @Field({ nullable: true })
+  @Column()
+  updatedAt: Date;
+
+  @BeforeInsert()
+  updateTimestampBeforeInsert() {
+    this.createdAt = new Date();
+    this.updatedAt = new Date();
+  }
+
+  @BeforeUpdate()
+  updateTimestampBeforeUpdate() {
+    this.updatedAt = new Date();
+  }
 }

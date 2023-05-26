@@ -39,14 +39,14 @@ export class SupportService {
   async getSupport(supportId: string) {
     const support = await Support.findOne({ id: supportId });
     if (!support) {
-      throw new NotFoundException('Program not found');
+      throw new NotFoundException('Support not found');
     }
 
     return support;
   }
   
   async getSupports(queryParams: QueryFilterDto) {
-    const builder = Support.createQueryBuilder();
+    const builder = Support.createQueryBuilder().leftJoinAndSelect('Support.user', 'user');
     extractFilter<Support>(
       builder,
       queryParams,

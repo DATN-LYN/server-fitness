@@ -5,13 +5,13 @@ export class UpsertSupportInputDto {
   @Field(() => ID, { nullable: true })
   id: string;
 
-  @Field()
-  email: string;
+  @Field({ nullable: true })
+  userId: string;
 
-  @Field()
-  description: string;
+  @Field({ nullable: true })
+  content: string;
 
-  @Field()
+  @Field({ nullable: true })
   imgUrl: string;
 
 }

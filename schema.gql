@@ -37,61 +37,10 @@ type Query {
 type ISupport {
   id: String!
   userId: String
-  email: String!
-  description: String!
-  imgUrl: String!
-  isRead: Boolean!
-}
-
-type ISupports {
-  meta: Meta
-  items: [Support!]
-}
-
-type Meta {
-  totalItems: Float
-  itemCount: Float
-  itemsPerPage: Float
-  totalPages: Float
-  currentPage: Float
-}
-
-type Support {
-  id: String!
-  userId: String
-  email: String!
-  description: String!
-  imgUrl: String!
-  isRead: Boolean!
-}
-
-input QueryFilterDto {
-  limit: Float
-  page: Float
-  orderBy: String
-  filters: [FilterDto!]
-}
-
-input FilterDto {
-  field: String
-  data: String
-  operator: FILTER_OPERATOR
-}
-
-enum FILTER_OPERATOR {
-  eq
-  like
-  in
-  lt
-  gt
-}
-
-type IUserProgram {
-  id: ID
-  userId: String!
-  programId: String!
   user: User
-  program: Program
+  content: String!
+  imgUrl: String!
+  isRead: Boolean!
   createdAt: DateTime
   updatedAt: DateTime
 }
@@ -184,6 +133,61 @@ type Exercise {
   imgUrl: String
   calo: Float
   programId: String!
+  program: Program
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+type ISupports {
+  meta: Meta
+  items: [Support!]
+}
+
+type Meta {
+  totalItems: Float
+  itemCount: Float
+  itemsPerPage: Float
+  totalPages: Float
+  currentPage: Float
+}
+
+type Support {
+  id: String!
+  userId: String
+  user: User
+  content: String!
+  imgUrl: String!
+  isRead: Boolean!
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+input QueryFilterDto {
+  limit: Float
+  page: Float
+  orderBy: String
+  filters: [FilterDto!]
+}
+
+input FilterDto {
+  field: String
+  data: String
+  operator: FILTER_OPERATOR
+}
+
+enum FILTER_OPERATOR {
+  eq
+  like
+  in
+  lt
+  gt
+}
+
+type IUserProgram {
+  id: ID
+  userId: String!
+  programId: String!
+  user: User
   program: Program
   createdAt: DateTime
   updatedAt: DateTime
@@ -353,9 +357,9 @@ type Mutation {
 
 input UpsertSupportInputDto {
   id: ID
-  email: String!
-  description: String!
-  imgUrl: String!
+  userId: String
+  content: String
+  imgUrl: String
 }
 
 type ResponseMessageBase {

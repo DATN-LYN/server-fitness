@@ -10,8 +10,8 @@ export class Support extends BaseEntity {
   @Field()
   id: string;
 
-  @Column({nullable: true })
-  @Field({nullable: true })
+  @Column({ nullable: true })
+  @Field({ nullable: true })
   userId: string;
 
   @Field(() => User, { nullable: true })
@@ -19,17 +19,21 @@ export class Support extends BaseEntity {
   @JoinColumn({ name: 'user_id' })
   user: User;
 
-  @Field()
-  @Column({nullable: true })
+  @Field({ nullable: true })
+  @Column()
   content: string; 
 
-  @Field()
+  @Field({ nullable: true })
   @Column({ nullable: true })
   imgUrl: string; 
 
-  @Field()
-  @Column({nullable: true })
+  @Field({ nullable: true })
+  @Column()
   isRead: boolean; 
+
+  @Field({ nullable: true })
+  @Column()
+  status: number; 
 
   @Field({ nullable: true })
   @Column()

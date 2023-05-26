@@ -37,7 +37,7 @@ export class SupportService {
   }
 
   async getSupport(supportId: string) {
-    const support = await Support.findOne({ id: supportId });
+    const support = (await Support.findOne({ id: supportId }));
     if (!support) {
       throw new NotFoundException('Support not found');
     }

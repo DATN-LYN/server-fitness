@@ -19,9 +19,9 @@ export class ProgramResolver {
     return this.programService.getProgram(programId);
   }
 
-  @Query(() => ISummary, { name: 'getProgramCountBABCBCBCBC' })
-  async getProgramCountBABCBCBCBC() {
-    return this.programService.getProgramCountBABCBCBCBC();
+  @Query(() => ISummary, { name: 'getHomeOverview' })
+  async getHomeOverview() {
+    return this.programService.getHomeOverview();
   }
 
   @Query(() => IPrograms, { name: 'getPrograms' })

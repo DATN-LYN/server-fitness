@@ -1,13 +1,13 @@
 import { QueryFilterDto } from '@/common/dto';
+import { Category } from '@/db/entities/Category';
+import { Exercise } from '@/db/entities/Exercise';
 import { Program } from '@/db/entities/Program';
+import { User } from '@/db/entities/User';
 import { customPaginate } from '@/utils/custom-paginate';
 import { extractFilter } from '@/utils/extractFilter';
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { getManager } from 'typeorm';
 import { UpsertProgramInputDto } from './dto';
-import { User } from '@/db/entities/User';
-import { Exercise } from '@/db/entities/Exercise';
-import { Category } from '@/db/entities/Category';
 
 @Injectable()
 export class ProgramService {
@@ -62,7 +62,7 @@ export class ProgramService {
     };
   }
 
-  async getProgramCountBABCBCBCBC() {
+  async getHomeOverview() {
     const [userCnt, programCnt, exerciseCnt, categoryCnt] = await Promise.all([
       User.count(),
       Program.count(),

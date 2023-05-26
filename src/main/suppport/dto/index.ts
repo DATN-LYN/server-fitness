@@ -14,4 +14,9 @@ export class UpsertSupportInputDto {
   @Field({ nullable: true })
   imgUrl: string;
 
+  @Field({ nullable: true })
+  isRead: boolean;
+
+  @Field({ nullable: true })
+  status: number;
 }

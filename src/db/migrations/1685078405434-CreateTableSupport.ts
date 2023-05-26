@@ -8,9 +8,9 @@ export class CreateTableSupport1685078405434 implements MigrationInterface {
         "id" uuid NOT NULL DEFAULT uuid_generate_v4(),
         "user_id" uuid NOT NULL,
         "content" VARCHAR(2048) NULL,
-        "email" VARCHAR(255) NULL,
         "img_url" VARCHAR(2048) NULL,
         "is_read" bool NULL,
+        "status" INTEGER NULL,
 
 
         "created_at" timestamp with time zone DEFAULT NOW(),

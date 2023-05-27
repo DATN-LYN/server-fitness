@@ -1,6 +1,7 @@
 import { QueryFilterDto } from '@/common/dto';
 import { Inbox } from '@/db/entities/Inbox';
 import { customPaginate } from '@/utils/custom-paginate';
+import { extractFilter } from '@/utils/extractFilter';
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { getManager } from 'typeorm';
 import { UpsertInboxInputDto } from './dto';
@@ -27,7 +28,13 @@ export class InboxService {
   }
   async getInboxes(queryParams: QueryFilterDto) {
     const builder = Inbox.createQueryBuilder().leftJoinAndSelect('Inbox.user', 'user');
+    extractFilter<Inbox>(
+      builder,
+      queryParams,
+      'Inbox.user.email',
+      'Inbox.isSender',
 
+    );
     return await customPaginate<Inbox>(builder, queryParams);
   }
 

@@ -11,3 +11,18 @@ export class IPrograms extends BaseMeta {
   @Field(() => [Program], { nullable: true })
   items: Program[];
 }
+
+@ObjectType({ isAbstract: true })
+export class ISummary {
+  @Field({ nullable: true, defaultValue: 0 })
+  userCnt: number;
+  
+  @Field({ nullable: true, defaultValue: 0 })
+  programCnt: number;
+  
+  @Field({ nullable: true, defaultValue: 0 })
+  exerciseCnt: number;
+  
+  @Field({ nullable: true, defaultValue: 0 })
+  categoryCnt: number;
+}

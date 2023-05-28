@@ -23,7 +23,15 @@ export class User extends BaseEntity {
 
   @Field()
   @Column({ unique: true, nullable: true })
-  email: string;
+  email: string; 
+
+  @Field({ nullable: true})
+  @Column({ select: false, insert: false, update: false, nullable: true })
+  countProgram: number;
+
+  @Field({ nullable: true})
+  @Column({ select: false, insert: false, update: false, nullable: true })
+  countInbox: number;
 
   @Field({nullable: true})
   @Column({nullable: true})

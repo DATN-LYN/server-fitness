@@ -135,4 +135,21 @@ export class AuthService {
       message: 'sucess',
     };
   }
+
+  // async changePassword(userId: string, oldPassword: string, newPassword: string) {
+  //   const user = await User.findOne({ id: userId });
+  //   if (!user) {
+  //     throw new BadRequestException('User Not Found');
+  //   }
+  //   const transaction = getManager();
+  //       const newUser = transaction
+  //         .getRepository(User)
+  //         .merge(user, { ...input });
+    
+
+  //   return {
+  //     success: true,
+  //     message: 'sucess',
+  //   };
+  // }
 }

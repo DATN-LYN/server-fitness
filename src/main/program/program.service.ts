@@ -1,5 +1,8 @@
 import { QueryFilterDto } from '@/common/dto';
+import { Category } from '@/db/entities/Category';
+import { Exercise } from '@/db/entities/Exercise';
 import { Program } from '@/db/entities/Program';
+import { User } from '@/db/entities/User';
 import { customPaginate } from '@/utils/custom-paginate';
 import { extractFilter } from '@/utils/extractFilter';
 import { Injectable, NotFoundException } from '@nestjs/common';
@@ -57,5 +60,18 @@ export class ProgramService {
       message: 'true',
       success: true,
     };
+  }
+
+  async getHomeOverview() {
+    const [userCnt, programCnt, exerciseCnt, categoryCnt] = await Promise.all([
+      User.count(),
+      Program.count(),
+      Exercise.count(),
+      Category.count()
+    ]);
+
+    return {
+      userCnt, programCnt, exerciseCnt, categoryCnt
+    }
   }
 }

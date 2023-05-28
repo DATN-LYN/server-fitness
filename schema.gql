@@ -3,6 +3,9 @@
 # ------------------------------------------------------
 
 type Query {
+  getSupport(supportId: String!): ISupport!
+  getSupports(queryParams: QueryFilterDto!): ISupports!
+  getMySupports(queryParams: QueryFilterDto!): ISupports!
   getUserProgram(id: String!): IUserProgram!
   getUserPrograms(queryParams: QueryFilterDto!): IUserPrograms!
   getMyUserPrograms(queryParams: QueryFilterDto!): IUserPrograms!
@@ -23,18 +26,22 @@ type Query {
   getCategory(categoryId: String!): Category!
   getCategories(queryParams: QueryFilterDto!): ICategories!
   getProgram(programId: String!): Program!
+  getHomeOverview: ISummary!
   getPrograms(queryParams: QueryFilterDto!): IPrograms!
   getUser(userId: String!): IUser!
   getCurrentUser: IUser!
   getUsers(queryParams: QueryFilterDto!): IUsers!
+  getTopUsersProgram(queryParams: QueryFilterDto!): IUsers!
 }
 
-type IUserProgram {
-  id: ID
-  userId: String!
-  programId: String!
+type ISupport {
+  id: String!
+  userId: String
   user: User
-  program: Program
+  content: String
+  imgUrl: String
+  isRead: Boolean
+  status: Float
   createdAt: DateTime
   updatedAt: DateTime
 }
@@ -42,6 +49,8 @@ type IUserProgram {
 type User {
   id: String!
   email: String!
+  countProgram: Float
+  countInbox: Float
   fullName: String
   password: String!
   googleId: String
@@ -130,9 +139,9 @@ type Exercise {
   updatedAt: DateTime
 }
 
-type IUserPrograms {
+type ISupports {
   meta: Meta
-  items: [UserProgram!]
+  items: [Support!]
 }
 
 type Meta {
@@ -141,6 +150,18 @@ type Meta {
   itemsPerPage: Float
   totalPages: Float
   currentPage: Float
+}
+
+type Support {
+  id: String!
+  userId: String
+  user: User
+  content: String
+  imgUrl: String
+  isRead: Boolean
+  status: Float
+  createdAt: DateTime
+  updatedAt: DateTime
 }
 
 input QueryFilterDto {
@@ -162,6 +183,21 @@ enum FILTER_OPERATOR {
   in
   lt
   gt
+}
+
+type IUserProgram {
+  id: ID
+  userId: String!
+  programId: String!
+  user: User
+  program: Program
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+type IUserPrograms {
+  meta: Meta
+  items: [UserProgram!]
 }
 
 type IUserExercise {
@@ -263,6 +299,13 @@ type ICategories {
   items: [Category!]
 }
 
+type ISummary {
+  userCnt: Float
+  programCnt: Float
+  exerciseCnt: Float
+  categoryCnt: Float
+}
+
 type IPrograms {
   meta: Meta
   items: [Program!]
@@ -271,6 +314,8 @@ type IPrograms {
 type IUser {
   id: String!
   email: String!
+  countProgram: Float
+  countInbox: Float
   fullName: String
   password: String!
   googleId: String
@@ -290,6 +335,8 @@ type IUsers {
 }
 
 type Mutation {
+  upsertSupport(input: UpsertSupportInputDto!): ISupport!
+  deleteSupport(supportId: String!): ResponseMessageBase!
   upsertUserProgram(input: UpsertUserProgramInputDto!): IUserProgram!
   deleteUserProgram(id: String!): ResponseMessageBase!
   upsertUserExercise(input: UpsertUserExerciseInputDto!): IUserExercise!
@@ -310,15 +357,24 @@ type Mutation {
   upsertUser(input: UpsertUserInputDto!): IUser!
 }
 
-input UpsertUserProgramInputDto {
+input UpsertSupportInputDto {
   id: ID
-  userId: String!
-  programId: String!
+  userId: String
+  content: String
+  imgUrl: String
+  isRead: Boolean
+  status: Float
 }
 
 type ResponseMessageBase {
   message: String!
   success: Boolean!
+}
+
+input UpsertUserProgramInputDto {
+  id: ID
+  userId: String!
+  programId: String!
 }
 
 input UpsertUserExerciseInputDto {

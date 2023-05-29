@@ -61,4 +61,9 @@ export class SupportService {
 
     return await customPaginate<Support>(builder, queryParams);
   }
+
+  async getUnreadSupports() {
+    const supportCnt = await Promise.call(Support.findAndCount({ isRead: false }));
+    return supportCnt;
+  }
 }

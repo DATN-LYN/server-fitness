@@ -36,4 +36,6 @@ export class SupportResolver {
   async deleteInbox(@Args('supportId') supportId: string) {
     return this.supportService.deleteSupport(supportId);
   }
+
+
 }

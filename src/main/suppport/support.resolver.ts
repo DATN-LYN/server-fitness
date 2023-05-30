@@ -37,5 +37,9 @@ export class SupportResolver {
     return this.supportService.deleteSupport(supportId);
   }
 
+  @Query(() => Number, { name: 'getUnReadSupports' })
+  async getUnReadSupports() {
+    return this.supportService.getUnReadSupports();
+  }
 
 }

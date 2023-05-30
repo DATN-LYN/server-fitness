@@ -2,11 +2,13 @@ import { ResponseMessageBase } from '@/common/dto';
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { AuthService } from './auth.service';
 import {
+  ChangePasswordInputDto,
   LoginInputDto,
   LoginResponseDto,
   RefreshTokenResponseDto,
   RegisterInputDto,
 } from './dto';
+import { Context, GetContext } from '@/decorators/user.decorator';
 // import { Auth } from '@/decorators/auth.decorator';
 
 @Resolver()
@@ -42,5 +44,10 @@ export class AuthResolver {
   @Mutation(() => ResponseMessageBase, { name: `logout` })
   async logout(@Args('userId') userId: string) {
     return await this.authService.logout(userId);
+  }
+
+  @Mutation(() => ResponseMessageBase, { name: `changePassword` })
+  async changePassword(@Args('input') input: ChangePasswordInputDto, @GetContext() ctx: Context) {
+    return await this.authService.changePassword(ctx.currentUser.id, input);
   }
 }

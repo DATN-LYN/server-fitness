@@ -106,3 +106,12 @@ export class RegisterInputDto {
   @Field()
   fullName: string;
 }
+
+@InputType({ isAbstract: true })
+export class ChangePasswordInputDto {
+  @Field({ nullable: true })
+  oldPassword: string;
+
+  @Field({ nullable: true })
+  newPassword: string;
+}

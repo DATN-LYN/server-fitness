@@ -146,7 +146,7 @@ export class AuthService {
 
     const isMatched = await PasswordUtil.validateHash(oldPassword, user.password);
     if (!isMatched) {
-      throw new BadRequestException('sai roi');
+      throw new BadRequestException('Wrong old password');
     }
     return await getManager().transaction(async transaction => {
       const hashPassword = await PasswordUtil.generateHash(newPassword);

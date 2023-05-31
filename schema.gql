@@ -16,7 +16,7 @@ type Query {
   getStats(statsId: String!): IUserStatistics!
   getStatsList(queryParams: QueryFilterDto!): IUserStatisticses!
   getMyStats(queryParams: QueryFilterDto!): IUserStatisticses!
-  getExercise(programId: String!): IExercise!
+  getExercise(exerciseId: String!): IExercise!
   getExercises(queryParams: QueryFilterDto!): IExercises!
   loginGoogle(input: LoginInputDto!): LoginResponseDto!
   login(input: LoginInputDto!): LoginResponseDto!

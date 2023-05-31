@@ -9,17 +9,17 @@ export class ExerciseResolver {
   constructor(private readonly exerciseService: ExerciseService) {}
 
   @Mutation(() => IExercise, { name: 'upsertExercise' })
-  async upsertProgram(@Args('input') input: UpsertExerciseInputDto) {
-    return this.exerciseService.upsertProgram(input);
+  async upsertExercise(@Args('input') input: UpsertExerciseInputDto) {
+    return this.exerciseService.upsertExercise(input);
   }
 
   @Query(() => IExercise, { name: 'getExercise' })
-  async getProgram(@Args('programId') programId: string) {
-    return this.exerciseService.getExercise(programId);
+  async getExercise(@Args('exerciseId') exerciseId: string) {
+    return this.exerciseService.getExercise(exerciseId);
   }
 
   @Query(() => IExercises, { name: 'getExercises' })
-  async getPrograms(@Args('queryParams') queryParams: QueryFilterDto) {
+  async getExercises(@Args('queryParams') queryParams: QueryFilterDto) {
     return this.exerciseService.getExercises(queryParams);
   }
 

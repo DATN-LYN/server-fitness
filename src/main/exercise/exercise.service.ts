@@ -8,7 +8,7 @@ import { UpsertExerciseInputDto } from './dto';
 
 @Injectable()
 export class ExerciseService {
-  async upsertProgram(input: UpsertExerciseInputDto) {
+  async upsertExercise(input: UpsertExerciseInputDto) {
     const { id } = input;
 
     const exercise = await Exercise.findOne({ id });

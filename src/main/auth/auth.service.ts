@@ -7,6 +7,7 @@ import {
 import { OAuth2Client } from 'google-auth-library';
 import _ from 'lodash';
 import {
+  ChangePasswordInputDto,
   CreateUserSocial,
   LoginResponseDto,
   RefreshTokenResponseDto,
@@ -136,20 +137,33 @@ export class AuthService {
     };
   }
 
-  // async changePassword(userId: string, oldPassword: string, newPassword: string) {
-  //   const user = await User.findOne({ id: userId });
-  //   if (!user) {
-  //     throw new BadRequestException('User Not Found');
-  //   }
-  //   const transaction = getManager();
-  //       const newUser = transaction
-  //         .getRepository(User)
-  //         .merge(user, { ...input });
-    
+  async changePassword(userId: string, input: ChangePasswordInputDto) {
+    const { oldPassword, newPassword } = input;
+    const user = await User.findOne({ id: userId });
+    if (!user) {
+      throw new BadRequestException('User Not Found');
+    }
 
-  //   return {
-  //     success: true,
-  //     message: 'sucess',
-  //   };
-  // }
+    const isMatched = await PasswordUtil.validateHash(oldPassword, user.password);
+    if (!isMatched) {
+      throw new BadRequestException('sai roi');
+    }
+    return await getManager().transaction(async transaction => {
+      const hashPassword = await PasswordUtil.generateHash(newPassword);
+      await transaction
+        .getRepository(User)
+        .createQueryBuilder()
+        .update()
+        .set({
+          password: hashPassword
+        })
+        .where({ id: user.id })
+        .execute();
+
+        return {
+          message: 'Send Code Successfully.',
+          success: true
+        };
+    });
+  }
 }

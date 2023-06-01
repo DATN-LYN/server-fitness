@@ -6,6 +6,7 @@ type Query {
   getSupport(supportId: String!): ISupport!
   getSupports(queryParams: QueryFilterDto!): ISupports!
   getMySupports(queryParams: QueryFilterDto!): ISupports!
+  getUnReadSupports: Float!
   getUserProgram(id: String!): IUserProgram!
   getUserPrograms(queryParams: QueryFilterDto!): IUserPrograms!
   getMyUserPrograms(queryParams: QueryFilterDto!): IUserPrograms!
@@ -347,6 +348,7 @@ type Mutation {
   deleteExercise(exerciseId: String!): ResponseMessageBase!
   register(input: RegisterInputDto!): ResponseMessageBase!
   logout(userId: String!): ResponseMessageBase!
+  changePassword(input: ChangePasswordInputDto!): ResponseMessageBase!
   upsertInbox(input: UpsertInboxInputDto!): IInbox!
   deleteInbox(inboxId: String!): ResponseMessageBase!
   upsertCategory(input: UpsertCategoryInputDto!): ICategory!
@@ -407,6 +409,11 @@ input RegisterInputDto {
   avatar: String
   age: Float!
   fullName: String!
+}
+
+input ChangePasswordInputDto {
+  oldPassword: String
+  newPassword: String
 }
 
 input UpsertInboxInputDto {

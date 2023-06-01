@@ -37,7 +37,7 @@ export class SupportService {
   }
 
   async getSupport(supportId: string) {
-    const support = (await Support.findOne({ id: supportId }));
+    const support = (await Support.findOne({ where: { id: supportId }, relations: ['user'] }));
     if (!support) {
       throw new NotFoundException('Support not found');
     }
@@ -60,5 +60,9 @@ export class SupportService {
     const builder = Support.createQueryBuilder().where({ userId});
 
     return await customPaginate<Support>(builder, queryParams);
+  }
+
+  async getUnReadSupports() {
+    return await Support.createQueryBuilder().where({ isRead: false }).getCount();
   }
 }

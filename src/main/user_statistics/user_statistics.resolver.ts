@@ -31,6 +31,12 @@ export class UserStatisticsResolver {
     return this.statsService.getMyStats(queryParams, ctx.currentUser.id);
   }
 
+  @Query(() => IUserStatisticses, { name: 'getUserStats' })
+  async getUserStats(@Args('queryParams') queryParams: QueryFilterDto, @Args('userId') userId: string) {
+    
+    return this.statsService.getMyStats(queryParams, userId);
+  }
+
   @Mutation(() => ResponseMessageBase, { name: 'deleteStats' })
   async deleteInbox(@Args('statsId') statsId: string) {
     return this.statsService.deleteStats(statsId);

@@ -34,6 +34,7 @@ type Query {
   getCurrentUser: IUser!
   getUsers(queryParams: QueryFilterDto!): IUsers!
   getTopUsersProgram(queryParams: QueryFilterDto!): IUsers!
+  getTopUsersInbox(queryParams: QueryFilterDto!): IUsers!
 }
 
 type ISupport {

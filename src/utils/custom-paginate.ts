@@ -5,6 +5,8 @@ export async function customPaginate<T>(
   pagingOptions: { page: number; limit: number; orderBy: string },
 ) {
   const { page, limit, orderBy } = pagingOptions;
+  console.log({pagingOptions});
+  
   if (orderBy) {
     const sort = orderBy.substring(0, orderBy.indexOf(':'));
     const order = orderBy.substring(orderBy.indexOf(':') + 1, orderBy.length);

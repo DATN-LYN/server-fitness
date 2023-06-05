@@ -9,7 +9,7 @@ import { UpsertUserInputDto } from './dto';
 @Injectable()
 export class UserService {
     async getUsers(queryParams: QueryFilterDto) {
-        const builder = User.createQueryBuilder();
+        const builder = User.createQueryBuilder().leftJoin('User.inboxes', 'inboxes');
         extractFilter<User>(
           builder,
           queryParams,
@@ -36,16 +36,16 @@ export class UserService {
 
   async getTopUsersInbox(queryParams: QueryFilterDto) {
     const builder = User.createQueryBuilder()
-      .leftJoin('User.inboxes', 'inboxes')
-      .addSelect('COUNT(User.id)', 'User_count_inbox')
-      .groupBy('User.id');
+    .leftJoin('User.inboxes', 'inboxes')
+    .addSelect('COUNT(inboxes.id)', 'User_count_inbox')
+    .groupBy('User.id');
 
     extractFilter<User>(
       builder,
       queryParams,
       'User.fullName',
     );
-    
+
     return await customPaginate<User>(builder, queryParams);
 }
 
@@ -56,7 +56,10 @@ export class UserService {
             'userPrograms',
             'userPrograms.program',
             'userExercises',
-            'userExercises.exercise'
+            'userExercises.exercise',
+            'inboxes',
+            'inboxes.user',
+
           ]
         });
 
@@ -101,13 +104,13 @@ export class UserService {
       }
 
     async upsertUser(input: UpsertUserInputDto) {
+      console.log({input});
+      
         const { email } = input;
     
-        const user = await User.findOne({ email });
-
-        if (!user) {
-          throw new NotFoundException('User not found');
-        }
+        const user = await User.findOne({ where: { email } });
+      console.log({user});
+      
         const transaction = getManager();
         const newUser = transaction
           .getRepository(User)

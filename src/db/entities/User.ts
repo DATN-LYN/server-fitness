@@ -1,3 +1,4 @@
+import { GENDER } from '@/common/constant';
 import { Field, ObjectType } from '@nestjs/graphql';
 import {
   BaseEntity,
@@ -10,8 +11,8 @@ import {
 } from 'typeorm';
 import { Inbox } from './Inbox';
 import { Role } from './Role';
-import { UserProgram } from './UserProgram';
 import { UserExercise } from './UserExercise';
+import { UserProgram } from './UserProgram';
 
 @ObjectType({ isAbstract: true })
 @Entity('user')
@@ -67,7 +68,7 @@ export class User extends BaseEntity {
   role: Role;
 
   @Field(() => [Inbox], { nullable: true })
-  @OneToMany(() => Inbox, inbox => inbox.userId)
+  @OneToMany(() => Inbox, inbox => inbox.user)
   inboxes: Inbox[];
 
   @Field(() => [UserProgram], { nullable: true })
@@ -77,4 +78,8 @@ export class User extends BaseEntity {
   @Field(() => [UserExercise], { nullable: true })
   @OneToMany(() => UserExercise, userExercise => userExercise.user)
   userExercises: UserExercise[];
+
+  @Field(() => GENDER, { nullable: true })
+  @Column({ type: 'enum', enum: GENDER})
+  gender: GENDER
 }

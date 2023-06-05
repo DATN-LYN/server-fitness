@@ -9,6 +9,12 @@ import { UpsertUserProgramInputDto } from './dto';
 export class UserProgramService {
   async upsertUserProgram(input: UpsertUserProgramInputDto) {
 
+    const userProgramExists = await UserProgram.findOne({ userId: input.userId, programId: input.programId });
+    if (userProgramExists) {
+      await UserProgram.save(userProgramExists)
+      return userProgramExists;
+    }
+
     const transaction = getManager();
     const newStats = transaction
       .getRepository(UserProgram)

@@ -11,3 +11,9 @@ export enum WORKOUT_LEVEL {
   intermediate = 2,
   advanced = 3
 }
+
+export enum GENDER {
+  Fale = 'Fale',
+  Fefale = 'Fefale',
+  Khac = 'Khac',
+}

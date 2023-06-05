@@ -1,5 +1,5 @@
 import { GENDER } from '@/common/constant';
-import { Field, ObjectType } from '@nestjs/graphql';
+import { Field, ObjectType, registerEnumType } from '@nestjs/graphql';
 import {
   BaseEntity,
   Column,
@@ -13,6 +13,10 @@ import { Inbox } from './Inbox';
 import { Role } from './Role';
 import { UserExercise } from './UserExercise';
 import { UserProgram } from './UserProgram';
+
+registerEnumType(GENDER, {
+  name: "GENDER",
+})
 
 @ObjectType({ isAbstract: true })
 @Entity('user')

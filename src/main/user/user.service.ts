@@ -77,14 +77,17 @@ export class UserService {
           'userPrograms',
           'userPrograms.program',
           'userExercises',
-          'userExercises.exercise'
+          'userExercises.exercise',
+          'inboxes',
+          'inboxes.user',
         ]
       });
 
       if (!user) {
         throw new NotFoundException('User not found');
       }
-  
+      console.log(user);
+
       return user;
   }
 
@@ -108,13 +111,12 @@ export class UserService {
       
         const { email } = input;
     
-        const user = await User.findOne({ where: { email } });
-      console.log({user});
+        const user = await User.findOne({ where: { email: email } });
       
         const transaction = getManager();
         const newUser = transaction
           .getRepository(User)
-          .merge(user, { ...input });
+          .merge(user ?? User.create(), { ...input });
     
         return await transaction.getRepository(User).save(newUser);
     }

@@ -1,6 +1,12 @@
-import { Field, ObjectType } from "@nestjs/graphql";
+import { SUPPORT_STATUS } from "@/common/constant";
+import { Field, ObjectType, registerEnumType } from "@nestjs/graphql";
 import { BaseEntity, BeforeInsert, BeforeUpdate, Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 import { User } from "./User";
+
+
+registerEnumType(SUPPORT_STATUS, {
+  name: "SUPPORT_STATUS",
+})
 
 @ObjectType({ isAbstract: true })
 @Entity('support')
@@ -31,9 +37,9 @@ export class Support extends BaseEntity {
   @Column()
   isRead: boolean; 
 
-  @Field({ nullable: true })
-  @Column()
-  status: number; 
+  @Field(() => SUPPORT_STATUS, { nullable: true })
+  @Column({ type: 'enum', enum: SUPPORT_STATUS})
+  status: SUPPORT_STATUS
 
   @Field({ nullable: true })
   @Column()

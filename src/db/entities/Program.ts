@@ -1,4 +1,5 @@
-import { Field, ID, ObjectType } from '@nestjs/graphql';
+import { BODY_PART, WORKOUT_LEVEL } from '@/common/constant';
+import { Field, ID, ObjectType, registerEnumType } from '@nestjs/graphql';
 import {
   BaseEntity,
   BeforeInsert,
@@ -11,6 +12,13 @@ import {
 } from 'typeorm';
 import { Category } from './Category';
 
+registerEnumType(WORKOUT_LEVEL, {
+  name: "WORKOUT_LEVEL",
+})
+
+registerEnumType(BODY_PART, {
+  name: "BODY_PART",
+})
 @ObjectType({ isAbstract: true })
 @Entity('program')
 export class Program extends BaseEntity {
@@ -24,15 +32,7 @@ export class Program extends BaseEntity {
 
   @Field({ nullable: true })
   @Column()
-  level: number;
-
-  @Field({ nullable: true })
-  @Column()
   view: number;
-
-  @Field({ nullable: true })
-  @Column()
-  bodyPart: number;
 
   @Field({ nullable: true })
   @Column()
@@ -69,4 +69,12 @@ export class Program extends BaseEntity {
   updateTimestampBeforeUpdate() {
     this.updatedAt = new Date();
   }
+
+  @Field(() => WORKOUT_LEVEL, { nullable: true })
+  @Column({ type: 'enum', enum: WORKOUT_LEVEL})
+  level: WORKOUT_LEVEL
+
+  @Field(() => BODY_PART, { nullable: true })
+  @Column({ type: 'enum', enum: BODY_PART})
+  bodyPart: BODY_PART
 }

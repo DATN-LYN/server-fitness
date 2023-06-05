@@ -44,7 +44,7 @@ type ISupport {
   content: String
   imgUrl: String
   isRead: Boolean
-  status: Float
+  status: SUPPORT_STATUS
   createdAt: DateTime
   updatedAt: DateTime
 }
@@ -102,15 +102,15 @@ type UserProgram {
 type Program {
   id: ID
   name: String
-  level: Float
   view: Float
-  bodyPart: Float
   description: String
   imgUrl: String
   categoryId: String!
   category: Category
   createdAt: DateTime
   updatedAt: DateTime
+  level: WORKOUT_LEVEL
+  bodyPart: BODY_PART
 }
 
 type Category {
@@ -119,6 +119,19 @@ type Category {
   imgUrl: String
   createdAt: DateTime
   updatedAt: DateTime
+}
+
+enum WORKOUT_LEVEL {
+  Beginner
+  Intermediate
+  Advanced
+}
+
+enum BODY_PART {
+  Upper
+  Downer
+  ABS
+  FullBody
 }
 
 type UserExercise {
@@ -145,9 +158,16 @@ type Exercise {
 }
 
 enum GENDER {
-  Fale
-  Fefale
-  Khac
+  Male
+  Female
+  Others
+}
+
+enum SUPPORT_STATUS {
+  Waiting
+  Solving
+  Done
+  Canceled
 }
 
 type ISupports {
@@ -170,7 +190,7 @@ type Support {
   content: String
   imgUrl: String
   isRead: Boolean
-  status: Float
+  status: SUPPORT_STATUS
   createdAt: DateTime
   updatedAt: DateTime
 }
@@ -377,7 +397,7 @@ input UpsertSupportInputDto {
   content: String
   imgUrl: String
   isRead: Boolean
-  status: Float
+  status: SUPPORT_STATUS
 }
 
 type ResponseMessageBase {
@@ -453,22 +473,22 @@ input UpsertCategoryInputDto {
 type IProgram {
   id: ID
   name: String
-  level: Float
   view: Float
-  bodyPart: Float
   description: String
   imgUrl: String
   categoryId: String!
   category: Category
   createdAt: DateTime
   updatedAt: DateTime
+  level: WORKOUT_LEVEL
+  bodyPart: BODY_PART
 }
 
 input UpsertProgramInputDto {
   id: ID
   name: String!
-  level: Float!
-  bodyPart: Float!
+  level: WORKOUT_LEVEL
+  bodyPart: BODY_PART
   description: String!
   imgUrl: String!
   categoryId: String!

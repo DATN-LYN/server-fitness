@@ -6,14 +6,28 @@ export enum FILTER_OPERATOR {
   gt = 'gt',
 }
 
-export enum WORKOUT_LEVEL {
-  beginner = 1,
-  intermediate = 2,
-  advanced = 3
+export enum GENDER {
+  Male = 'Male',
+  Female = 'Female',
+  Others = 'Others',
 }
 
-export enum GENDER {
-  Fale = 'Fale',
-  Fefale = 'Fefale',
-  Khac = 'Khac',
+export enum WORKOUT_LEVEL {
+  Beginner = 'Beginner',
+  Intermediate = 'Intermediate',
+  Advanced = 'Advanced',
+}
+
+export enum BODY_PART {
+  Upper = 'Upper',
+  Downer = 'Downer',
+  ABS = 'ABS',
+  FullBody = 'FullBody',
+}
+
+export enum SUPPORT_STATUS {
+  Waiting = 'Waiting',
+  Solving = 'Solving',
+  Done = 'Done',
+  Canceled = 'Canceled',
 }

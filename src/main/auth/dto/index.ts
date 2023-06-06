@@ -1,5 +1,7 @@
+import { GENDER } from '@/common/constant';
 import { User } from '@/db/entities/User';
 import { Field, ID, InputType, ObjectType } from '@nestjs/graphql';
+import { IsEnum } from 'class-validator';
 
 @ObjectType({ isAbstract: true })
 export class LoginResponseDto {
@@ -105,6 +107,10 @@ export class RegisterInputDto {
 
   @Field()
   fullName: string;
+
+  @Field(() => GENDER, { nullable: true })
+  @IsEnum(GENDER, { message: 'GENDER'})
+  gender: GENDER;
 }
 
 @InputType({ isAbstract: true })

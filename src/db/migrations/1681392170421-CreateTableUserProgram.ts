@@ -7,6 +7,7 @@ export class CreateTableUserProgram1681392170421 implements MigrationInterface {
             "id" uuid NOT NULL DEFAULT uuid_generate_v4(),
             "user_id" uuid NULL,
             "program_id" uuid NULL,
+            "is_favorite" boolean NULL DEFAULT FALSE,
     
             "created_at" timestamp with time zone DEFAULT NOW(),
             "updated_at" timestamp with time zone DEFAULT NOW(),

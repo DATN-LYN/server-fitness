@@ -10,6 +10,7 @@ export class CreateTableUserStatistics1683902759323 implements MigrationInterfac
                 "program_count" int NULL,
                 "calo_count" float NULL,
                 "duration_count" int NULL,
+                "gender" VARCHAR NULL,
         
                 "created_at" timestamp with time zone DEFAULT NOW(),
                 "updated_at" timestamp with time zone DEFAULT NOW(),

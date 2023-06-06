@@ -27,9 +27,14 @@ export class UserResolver {
 
   @Query(() => IUsers, { name: 'getTopUsersProgram' })
   async getTopUsersProgram(@Args('queryParams') queryParams: QueryFilterDto) {
-    console.log(await this.userService.getTopUsersProgram(queryParams));
     
     return this.userService.getTopUsersProgram(queryParams);
+  }  
+
+  @Query(() => IUsers, { name: 'getTopUsersInbox' })
+  async getTopUsersInbox(@Args('queryParams') queryParams: QueryFilterDto) {
+    
+    return this.userService.getTopUsersInbox(queryParams);
   }  
 
   @Mutation(() => ResponseMessageBase, { name: 'deleteUser' })

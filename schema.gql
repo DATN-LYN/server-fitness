@@ -34,6 +34,7 @@ type Query {
   getCurrentUser: IUser!
   getUsers(queryParams: QueryFilterDto!): IUsers!
   getTopUsersProgram(queryParams: QueryFilterDto!): IUsers!
+  getTopUsersInbox(queryParams: QueryFilterDto!): IUsers!
 }
 
 type ISupport {
@@ -43,7 +44,7 @@ type ISupport {
   content: String
   imgUrl: String
   isRead: Boolean
-  status: Float
+  status: SUPPORT_STATUS
   createdAt: DateTime
   updatedAt: DateTime
 }
@@ -64,6 +65,7 @@ type User {
   inboxes: [Inbox!]
   userPrograms: [UserProgram!]
   userExercises: [UserExercise!]
+  gender: GENDER
 }
 
 type Role {
@@ -90,6 +92,7 @@ type UserProgram {
   id: ID
   userId: String!
   programId: String!
+  isFavorite: Boolean!
   user: User
   program: Program
   createdAt: DateTime
@@ -99,15 +102,15 @@ type UserProgram {
 type Program {
   id: ID
   name: String
-  level: Float
   view: Float
-  bodyPart: Float
   description: String
   imgUrl: String
   categoryId: String!
   category: Category
   createdAt: DateTime
   updatedAt: DateTime
+  level: WORKOUT_LEVEL
+  bodyPart: BODY_PART
 }
 
 type Category {
@@ -116,6 +119,19 @@ type Category {
   imgUrl: String
   createdAt: DateTime
   updatedAt: DateTime
+}
+
+enum WORKOUT_LEVEL {
+  Beginner
+  Intermediate
+  Advanced
+}
+
+enum BODY_PART {
+  Upper
+  Downer
+  ABS
+  FullBody
 }
 
 type UserExercise {
@@ -141,6 +157,19 @@ type Exercise {
   updatedAt: DateTime
 }
 
+enum GENDER {
+  Male
+  Female
+  Others
+}
+
+enum SUPPORT_STATUS {
+  Waiting
+  Solving
+  Done
+  Canceled
+}
+
 type ISupports {
   meta: Meta
   items: [Support!]
@@ -161,7 +190,7 @@ type Support {
   content: String
   imgUrl: String
   isRead: Boolean
-  status: Float
+  status: SUPPORT_STATUS
   createdAt: DateTime
   updatedAt: DateTime
 }
@@ -191,6 +220,7 @@ type IUserProgram {
   id: ID
   userId: String!
   programId: String!
+  isFavorite: Boolean!
   user: User
   program: Program
   createdAt: DateTime
@@ -329,6 +359,7 @@ type IUser {
   inboxes: [Inbox!]
   userPrograms: [UserProgram!]
   userExercises: [UserExercise!]
+  gender: GENDER
 }
 
 type IUsers {
@@ -366,7 +397,7 @@ input UpsertSupportInputDto {
   content: String
   imgUrl: String
   isRead: Boolean
-  status: Float
+  status: SUPPORT_STATUS
 }
 
 type ResponseMessageBase {
@@ -378,6 +409,7 @@ input UpsertUserProgramInputDto {
   id: ID
   userId: String!
   programId: String!
+  isFavorite: Boolean
 }
 
 input UpsertUserExerciseInputDto {
@@ -441,22 +473,22 @@ input UpsertCategoryInputDto {
 type IProgram {
   id: ID
   name: String
-  level: Float
   view: Float
-  bodyPart: Float
   description: String
   imgUrl: String
   categoryId: String!
   category: Category
   createdAt: DateTime
   updatedAt: DateTime
+  level: WORKOUT_LEVEL
+  bodyPart: BODY_PART
 }
 
 input UpsertProgramInputDto {
   id: ID
   name: String!
-  level: Float!
-  bodyPart: Float!
+  level: WORKOUT_LEVEL
+  bodyPart: BODY_PART
   description: String!
   imgUrl: String!
   categoryId: String!
@@ -469,4 +501,5 @@ input UpsertUserInputDto {
   avatar: String!
   email: String!
   age: Float!
+  gender: GENDER
 }

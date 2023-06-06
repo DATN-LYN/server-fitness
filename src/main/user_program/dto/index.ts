@@ -15,4 +15,7 @@ export class UpsertUserProgramInputDto {
   @Field()
   @ManyToOne(()=>Program)
   programId: string;
+
+  @Field({ nullable: true})
+  isFavorite: boolean;
 }

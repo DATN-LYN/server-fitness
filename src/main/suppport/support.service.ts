@@ -14,11 +14,11 @@ export class SupportService {
     const support = await Support.findOne({ id });
 
     const transaction = getManager();
-    const newSuppport = transaction
+    const newSupport = transaction
       .getRepository(Support)
       .merge(support ?? Support.create(), { ...input });
 
-    return await transaction.getRepository(Support).save(newSuppport);
+    return await transaction.getRepository(Support).save(newSupport);
   }
 
   async deleteSupport(supportId: string) {

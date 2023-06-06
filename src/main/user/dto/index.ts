@@ -1,4 +1,6 @@
+import { GENDER } from '@/common/constant';
 import { Field, ID, InputType } from '@nestjs/graphql';
+import { IsEnum } from 'class-validator';
 
 @InputType({ isAbstract: true })
 export class UpsertUserInputDto {
@@ -16,4 +18,8 @@ export class UpsertUserInputDto {
 
   @Field()
   age: number;
+
+  @Field(() => GENDER, { nullable: true })
+  @IsEnum(GENDER, { message: 'as'})
+  gender: GENDER
 }

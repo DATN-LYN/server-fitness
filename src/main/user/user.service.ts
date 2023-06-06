@@ -9,7 +9,7 @@ import { UpsertUserInputDto } from './dto';
 @Injectable()
 export class UserService {
     async getUsers(queryParams: QueryFilterDto) {
-        const builder = User.createQueryBuilder();
+        const builder = User.createQueryBuilder().leftJoin('User.inboxes', 'inboxes');
         extractFilter<User>(
           builder,
           queryParams,
@@ -34,6 +34,21 @@ export class UserService {
       return await customPaginate<User>(builder, queryParams);
   }
 
+  async getTopUsersInbox(queryParams: QueryFilterDto) {
+    const builder = User.createQueryBuilder()
+    .leftJoin('User.inboxes', 'inboxes')
+    .addSelect('COUNT(inboxes.id)', 'User_count_inbox')
+    .groupBy('User.id');
+
+    extractFilter<User>(
+      builder,
+      queryParams,
+      'User.fullName',
+    );
+
+    return await customPaginate<User>(builder, queryParams);
+}
+
     async getUser(userId: string) {
         const user = User.findOne({ 
           where: { id: userId }, 
@@ -41,7 +56,10 @@ export class UserService {
             'userPrograms',
             'userPrograms.program',
             'userExercises',
-            'userExercises.exercise'
+            'userExercises.exercise',
+            'inboxes',
+            'inboxes.user',
+
           ]
         });
 
@@ -59,14 +77,17 @@ export class UserService {
           'userPrograms',
           'userPrograms.program',
           'userExercises',
-          'userExercises.exercise'
+          'userExercises.exercise',
+          'inboxes',
+          'inboxes.user',
         ]
       });
 
       if (!user) {
         throw new NotFoundException('User not found');
       }
-  
+      console.log(user);
+
       return user;
   }
 
@@ -86,17 +107,16 @@ export class UserService {
       }
 
     async upsertUser(input: UpsertUserInputDto) {
+      console.log({input});
+      
         const { email } = input;
     
-        const user = await User.findOne({ email });
-
-        if (!user) {
-          throw new NotFoundException('User not found');
-        }
+        const user = await User.findOne({ where: { email: email } });
+      
         const transaction = getManager();
         const newUser = transaction
           .getRepository(User)
-          .merge(user, { ...input });
+          .merge(user ?? User.create(), { ...input });
     
         return await transaction.getRepository(User).save(newUser);
     }

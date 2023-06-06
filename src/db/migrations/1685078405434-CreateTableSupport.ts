@@ -10,7 +10,7 @@ export class CreateTableSupport1685078405434 implements MigrationInterface {
         "content" VARCHAR(2048) NULL,
         "img_url" VARCHAR(2048) NULL,
         "is_read" bool NULL,
-        "status" INTEGER NULL,
+        "status" VARCHAR NULL,
 
 
         "created_at" timestamp with time zone DEFAULT NOW(),

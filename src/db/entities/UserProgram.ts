@@ -27,6 +27,10 @@ export class UserProgram extends BaseEntity {
   @Column()
   programId!: string;
 
+  @Field()
+  @Column()
+  isFavorite: boolean;
+
   @Field(() => User, { nullable: true })
   @ManyToOne(() => User)
   @JoinColumn({ name: 'user_id' })

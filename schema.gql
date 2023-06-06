@@ -442,6 +442,7 @@ input RegisterInputDto {
   avatar: String
   age: Float!
   fullName: String!
+  gender: GENDER
 }
 
 input ChangePasswordInputDto {

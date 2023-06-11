@@ -11,6 +11,12 @@ import { UserExercise } from './entities/UserExercise';
 import { UserProgram } from './entities/UserProgram';
 import { UserStatistics } from './entities/UserStatistics';
 
+// host: 'fitness-db-datn.flycast',
+// port: 5432,
+// username: 'fitness_server_datn',
+// password: 'Lf3tQC7iYAAvl3T',
+// database: 'fitness_server_datn',
+
 export const connectionConfig: ConnectionOptions = {
   type: 'postgres',
   host: 'localhost',

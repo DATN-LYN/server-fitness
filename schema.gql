@@ -66,6 +66,7 @@ type User {
   userPrograms: [UserProgram!]
   userExercises: [UserExercise!]
   gender: GENDER
+  userRole: ROLE
 }
 
 type Role {
@@ -161,6 +162,11 @@ enum GENDER {
   Male
   Female
   Others
+}
+
+enum ROLE {
+  Admin
+  User
 }
 
 enum SUPPORT_STATUS {
@@ -360,6 +366,7 @@ type IUser {
   userPrograms: [UserProgram!]
   userExercises: [UserExercise!]
   gender: GENDER
+  userRole: ROLE
 }
 
 type IUsers {
@@ -443,6 +450,7 @@ input RegisterInputDto {
   age: Float!
   fullName: String!
   gender: GENDER
+  userRole: ROLE
 }
 
 input ChangePasswordInputDto {
@@ -503,4 +511,5 @@ input UpsertUserInputDto {
   email: String!
   age: Float!
   gender: GENDER
+  userRole: ROLE
 }

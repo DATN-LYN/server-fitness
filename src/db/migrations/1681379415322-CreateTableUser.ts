@@ -12,6 +12,7 @@ export class CreateTableUser1681379415322 implements MigrationInterface {
             "avatar" VARCHAR(2048) NULL,
             "age" int NULL,
             "gender" VARCHAR(255) null,
+            "user_role" VARCHAR(255) null,
             "refresh_token" TEXT NULL,
             "role_id" uuid null,
             "created_at" timestamp with time zone DEFAULT NOW(),

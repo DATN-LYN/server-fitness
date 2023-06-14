@@ -2,6 +2,8 @@ import { GENDER, ROLE } from '@/common/constant';
 import { Field, ObjectType, registerEnumType } from '@nestjs/graphql';
 import {
   BaseEntity,
+  BeforeInsert,
+  BeforeUpdate,
   Column,
   Entity,
   JoinColumn,
@@ -95,4 +97,23 @@ export class User extends BaseEntity {
   @Field(() => ROLE, { nullable: true })
   @Column({ type: 'enum', enum: ROLE})
   userRole: ROLE;
+
+  @Field({ nullable: true })
+  @Column()
+  createdAt: Date;
+
+  @Field({ nullable: true })
+  @Column()
+  updatedAt: Date;
+
+  @BeforeInsert()
+  updateTimestampBeforeInsert() {
+    this.createdAt = new Date();
+    this.updatedAt = new Date();
+  }
+
+  @BeforeUpdate()
+  updateTimestampBeforeUpdate() {
+    this.updatedAt = new Date();
+  }
 }

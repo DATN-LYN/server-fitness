@@ -67,6 +67,8 @@ type User {
   userExercises: [UserExercise!]
   gender: GENDER
   userRole: ROLE
+  createdAt: DateTime
+  updatedAt: DateTime
 }
 
 type Role {
@@ -367,6 +369,8 @@ type IUser {
   userExercises: [UserExercise!]
   gender: GENDER
   userRole: ROLE
+  createdAt: DateTime
+  updatedAt: DateTime
 }
 
 type IUsers {

@@ -116,6 +116,9 @@ export class RegisterInputDto {
   @Field(() => ROLE, { nullable: true })
   @IsEnum(ROLE, { message: 'ROLE'})
   userRole: ROLE;
+
+  @Field({ nullable: true })
+  isActive: boolean;
 }
 
 @InputType({ isAbstract: true })

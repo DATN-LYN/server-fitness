@@ -61,6 +61,7 @@ type User {
   age: Float
   refreshToken: String
   roleId: String
+  isActive: Boolean
   role: Role
   inboxes: [Inbox!]
   userPrograms: [UserProgram!]
@@ -363,6 +364,7 @@ type IUser {
   age: Float
   refreshToken: String
   roleId: String
+  isActive: Boolean
   role: Role
   inboxes: [Inbox!]
   userPrograms: [UserProgram!]
@@ -455,6 +457,7 @@ input RegisterInputDto {
   fullName: String!
   gender: GENDER
   userRole: ROLE
+  isActive: Boolean
 }
 
 input ChangePasswordInputDto {
@@ -514,6 +517,7 @@ input UpsertUserInputDto {
   avatar: String!
   email: String!
   age: Float!
+  isActive: Boolean
   gender: GENDER
   userRole: ROLE
 }

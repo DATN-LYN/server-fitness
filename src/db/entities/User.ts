@@ -73,6 +73,10 @@ export class User extends BaseEntity {
   @Column()
   roleId: string;
 
+  @Field({ nullable: true})
+  @Column()
+  isActive: boolean;
+
   @Field(() => Role, { nullable: true })
   @ManyToOne(() => Role)
   @JoinColumn({ name: 'role_id' })

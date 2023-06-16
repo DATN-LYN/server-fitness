@@ -19,6 +19,9 @@ export class UpsertUserInputDto {
   @Field()
   age: number;
 
+  @Field({nullable: true })
+  isActive: boolean
+
   @Field(() => GENDER, { nullable: true })
   @IsEnum(GENDER, { message: 'as'})
   gender: GENDER

@@ -15,7 +15,8 @@ export class UserService {
           queryParams,
           'User.fullName',
           'User.email',
-          'User.userRole'
+          'User.userRole',
+          'User.isActive'
         );
         
         return await customPaginate<User>(builder, queryParams);

@@ -22,6 +22,8 @@ import { DatabaseModule } from './module/database.module';
       driver: ApolloDriver,
       path: '/graphql',
       autoSchemaFile: 'schema.gql',
+      introspection: true,
+      playground: true,
       formatError: (error: GraphQLError) => {
         const res = error.extensions?.originalError as ResponseExceptionError;
         const graphQLFormattedError: any = {

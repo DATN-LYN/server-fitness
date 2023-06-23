@@ -19,11 +19,11 @@ import { UserStatistics } from './entities/UserStatistics';
 
 export const connectionConfig: ConnectionOptions = {
   type: 'postgres',
-  host: 'localhost',
-  port: 5432,
+  host: 'containers-us-west-157.railway.app',
+  port: 7986,
   username: 'postgres',
-  password: 'nhi111',
-  database: 'fitness',
+  password: 'CKul4b9GcrtB80aZjNcw',
+  database: 'railway',
   cli: {
     migrationsDir: 'migrations',
     entitiesDir: 'entities',

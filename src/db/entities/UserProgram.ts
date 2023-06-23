@@ -1,16 +1,16 @@
 import { Field, ID, ObjectType } from '@nestjs/graphql';
 import {
-    BaseEntity,
-    BeforeInsert,
-    BeforeUpdate,
-    Column,
-    Entity,
-    JoinColumn,
-    ManyToOne,
-    PrimaryGeneratedColumn
+  BaseEntity,
+  BeforeInsert,
+  BeforeUpdate,
+  Column,
+  Entity,
+  JoinColumn,
+  ManyToOne,
+  PrimaryGeneratedColumn
 } from 'typeorm';
-import { User } from './User';
 import { Program } from './Program';
+import { User } from './User';
 
 @ObjectType({ isAbstract: true })
 @Entity('user_program')
@@ -26,10 +26,6 @@ export class UserProgram extends BaseEntity {
   @Field()
   @Column()
   programId!: string;
-
-  @Field()
-  @Column()
-  isFavorite: boolean;
 
   @Field(() => User, { nullable: true })
   @ManyToOne(() => User)

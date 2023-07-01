@@ -1,0 +1,12 @@
+Postgres cluster fitness-db-datn created
+  Username:    postgres
+  Password:    DBX32NxFvCD88YG
+  Hostname:    fitness-db-datn.internal
+  Flycast:     fdaa:2:5684:0:1::2
+  Proxy port:  5432
+  Postgres port:  5433
+  Connection string: postgres://postgres:DBX32NxFvCD88YG@fitness-db-datn.flycast:5432
+
+   DATABASE_URL=postgres://fitness_server_datn:Lf3tQC7iYAAvl3T@fitness-db-datn.flycast:5432/fitness_server_datn?sslmode=disable
+
+   server_url = https://fitness-server-datn.fly.dev/

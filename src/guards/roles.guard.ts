@@ -6,8 +6,8 @@ import {
 } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
 
-import { JwtAuthGuard } from './auth.guard';
 import { User } from '@/db/entities/User';
+import { JwtAuthGuard } from './auth.guard';
 
 @Injectable()
 export class RolesGuard implements CanActivate {

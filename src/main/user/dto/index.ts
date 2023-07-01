@@ -1,4 +1,4 @@
-import { GENDER } from '@/common/constant';
+import { GENDER, ROLE } from '@/common/constant';
 import { Field, ID, InputType } from '@nestjs/graphql';
 import { IsEnum } from 'class-validator';
 
@@ -19,7 +19,14 @@ export class UpsertUserInputDto {
   @Field()
   age: number;
 
+  @Field({nullable: true })
+  isActive: boolean
+
   @Field(() => GENDER, { nullable: true })
   @IsEnum(GENDER, { message: 'as'})
   gender: GENDER
+
+  @Field(() => ROLE, { nullable: true })
+  @IsEnum(ROLE, { message: 'as'})
+  userRole: ROLE
 }

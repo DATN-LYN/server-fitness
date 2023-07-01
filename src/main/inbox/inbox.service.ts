@@ -31,7 +31,7 @@ export class InboxService {
     extractFilter<Inbox>(
       builder,
       queryParams,
-      'Inbox.user.email',
+      'User.email',
       'Inbox.isSender',
 
     );

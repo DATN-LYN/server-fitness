@@ -40,6 +40,7 @@ export class ProgramService {
       queryParams,
       'Program.name',
       'Program.level',
+      'Program.bodyPart',
       'Program.categoryId',
       'Program.createdAt'
     );

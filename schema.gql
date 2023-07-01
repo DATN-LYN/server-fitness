@@ -61,11 +61,15 @@ type User {
   age: Float
   refreshToken: String
   roleId: String
+  isActive: Boolean
   role: Role
   inboxes: [Inbox!]
   userPrograms: [UserProgram!]
   userExercises: [UserExercise!]
   gender: GENDER
+  userRole: ROLE
+  createdAt: DateTime
+  updatedAt: DateTime
 }
 
 type Role {
@@ -161,6 +165,11 @@ enum GENDER {
   Male
   Female
   Others
+}
+
+enum ROLE {
+  Admin
+  User
 }
 
 enum SUPPORT_STATUS {
@@ -355,11 +364,15 @@ type IUser {
   age: Float
   refreshToken: String
   roleId: String
+  isActive: Boolean
   role: Role
   inboxes: [Inbox!]
   userPrograms: [UserProgram!]
   userExercises: [UserExercise!]
   gender: GENDER
+  userRole: ROLE
+  createdAt: DateTime
+  updatedAt: DateTime
 }
 
 type IUsers {
@@ -443,6 +456,8 @@ input RegisterInputDto {
   age: Float!
   fullName: String!
   gender: GENDER
+  userRole: ROLE
+  isActive: Boolean
 }
 
 input ChangePasswordInputDto {
@@ -502,5 +517,7 @@ input UpsertUserInputDto {
   avatar: String!
   email: String!
   age: Float!
+  isActive: Boolean
   gender: GENDER
+  userRole: ROLE
 }

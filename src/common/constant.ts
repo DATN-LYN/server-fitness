@@ -6,6 +6,11 @@ export enum FILTER_OPERATOR {
   gt = 'gt',
 }
 
+export enum ROLE {
+  Admin = 'Admin',
+  User = 'User',
+}
+
 export enum GENDER {
   Male = 'Male',
   Female = 'Female',

@@ -1,4 +1,4 @@
-import { GENDER } from '@/common/constant';
+import { GENDER, ROLE } from '@/common/constant';
 import { User } from '@/db/entities/User';
 import { Field, ID, InputType, ObjectType } from '@nestjs/graphql';
 import { IsEnum } from 'class-validator';
@@ -111,6 +111,14 @@ export class RegisterInputDto {
   @Field(() => GENDER, { nullable: true })
   @IsEnum(GENDER, { message: 'GENDER'})
   gender: GENDER;
+
+
+  @Field(() => ROLE, { nullable: true })
+  @IsEnum(ROLE, { message: 'ROLE'})
+  userRole: ROLE;
+
+  @Field({ nullable: true })
+  isActive: boolean;
 }
 
 @InputType({ isAbstract: true })

@@ -1,13 +1,15 @@
-import { GENDER } from '@/common/constant';
+import { GENDER, ROLE } from '@/common/constant';
 import { Field, ObjectType, registerEnumType } from '@nestjs/graphql';
 import {
   BaseEntity,
+  BeforeInsert,
+  BeforeUpdate,
   Column,
   Entity,
   JoinColumn,
   ManyToOne,
   OneToMany,
-  PrimaryGeneratedColumn,
+  PrimaryGeneratedColumn
 } from 'typeorm';
 import { Inbox } from './Inbox';
 import { Role } from './Role';
@@ -17,6 +19,11 @@ import { UserProgram } from './UserProgram';
 registerEnumType(GENDER, {
   name: "GENDER",
 })
+
+registerEnumType(ROLE, {
+  name: "ROLE",
+})
+
 
 @ObjectType({ isAbstract: true })
 @Entity('user')
@@ -66,6 +73,10 @@ export class User extends BaseEntity {
   @Column()
   roleId: string;
 
+  @Field({ nullable: true})
+  @Column()
+  isActive: boolean;
+
   @Field(() => Role, { nullable: true })
   @ManyToOne(() => Role)
   @JoinColumn({ name: 'role_id' })
@@ -86,4 +97,27 @@ export class User extends BaseEntity {
   @Field(() => GENDER, { nullable: true })
   @Column({ type: 'enum', enum: GENDER})
   gender: GENDER
+
+  @Field(() => ROLE, { nullable: true })
+  @Column({ type: 'enum', enum: ROLE})
+  userRole: ROLE;
+
+  @Field({ nullable: true })
+  @Column()
+  createdAt: Date;
+
+  @Field({ nullable: true })
+  @Column()
+  updatedAt: Date;
+
+  @BeforeInsert()
+  updateTimestampBeforeInsert() {
+    this.createdAt = new Date();
+    this.updatedAt = new Date();
+  }
+
+  @BeforeUpdate()
+  updateTimestampBeforeUpdate() {
+    this.updatedAt = new Date();
+  }
 }

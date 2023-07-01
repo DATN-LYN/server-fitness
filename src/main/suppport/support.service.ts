@@ -50,6 +50,7 @@ export class SupportService {
     extractFilter<Support>(
       builder,
       queryParams,
+      'Support.user'
     );
     
     return await customPaginate<Support>(builder, queryParams);
